@@ -1,3 +1,13 @@
 # here_presente_frontend
 
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FL3binj68aVBSWdTwES2Zxb%2FHere-Present.%3Fnode-id%3D0%253A1" allowfullscreen></iframe>
+<details>
+  <summary markdown="span">This is the summary text, click me to expand</summary>
+
+  This is the detailed text.
+
+  We can still use markdown, but we need to take the additional step of using the `parse_block_html` option as described in the [Mix HTML + Markdown Markup section](#mix-html--markdown-markup).
+
+  You can learn more about expected usage of this approach in the [GitLab UI docs](https://gitlab-org.gitlab.io/gitlab-ui/?path=/story/base-collapse--default) though the solution we use above is specific to usage in markdown.
+</details>
+
+
