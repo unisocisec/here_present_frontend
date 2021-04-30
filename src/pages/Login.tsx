@@ -8,7 +8,9 @@ function Login() {
       <div className="content-wrapper">
         <main>
           <h1>Evoluindo o seu modo de fazer chamada</h1>
-          <p>Visite orfanatos e mude o dia de muitas crianças.</p>
+          <p>Versátil</p>
+          <p>Rápido</p>
+          <p>Acessível</p>
         </main>
         <div className="location">
           <strong>São Francisco do Sul</strong>
