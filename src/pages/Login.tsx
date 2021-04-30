@@ -7,7 +7,7 @@ function Login() {
     <div id="page-landing">
       <div className="content-wrapper">
         <main>
-          <h1>Bem Vindo ao HerePresent</h1>
+          <h1>Evoluindo o seu modo de fazer chamada</h1>
           <p>Visite orfanatos e mude o dia de muitas crianças.</p>
         </main>
         <div className="location">
