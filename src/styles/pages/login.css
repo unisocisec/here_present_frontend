@@ -1,0 +1,23 @@
+/* #pageLogin{
+
+} */
+
+#pageLogin > div.topBar{
+  height: 100px;
+  display: flex;
+  background-color: #00ADB5;
+}
+
+#pageLogin #login{
+  height: 60px;
+  background-color: #0B797E;
+  width: 200px;
+  border-radius: 10px;
+}
+
+#pageLogin #newRegister{
+  height: 60px;
+  width: 200px;
+  background-color: #49E6ED;
+  border-radius: 10px;
+}
