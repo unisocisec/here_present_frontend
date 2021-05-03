@@ -1,6 +1,6 @@
-/* #pageLogin{
-
-} */
+#pageLogin{
+  overflow: hidden;
+}
 
 #pageLogin .topBar{
   height: 100px;
@@ -15,7 +15,7 @@
 
 #pageLogin .contentWrapper {
   width: 75%;
-
+  height: calc(100vh - 100px);
 }
 
 #pageLogin #imageBackgroud{
@@ -72,7 +72,7 @@
 
 #pageLogin #sidebar {
   width: 25%;
-  height: 90vh;
+  height: calc(100vh - 100px);
   background-color: #00ADB5;
 }
 
