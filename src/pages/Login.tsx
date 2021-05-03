@@ -4,18 +4,16 @@ import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import trademark from '../images/trademark.png';
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
+import Topbar from "../components/topBar";
 
 import '../styles/pages/login.css';
 
 function Login() {
   return (
     <div id="pageLogin">
-      <div className="topBar">
-        <img id="trademark" src={trademark} alt="trademark"/>
-      </div>
+      <Topbar />
       <div className="contentLoginPage">
 
         <div className="contentWrapper">

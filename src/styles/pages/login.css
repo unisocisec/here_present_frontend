@@ -2,13 +2,6 @@
   overflow: hidden;
 }
 
-#pageLogin .topBar{
-  height: 100px;
-  display: flex;
-  background-color: #00ADB5;
-  border-bottom: 2px solid #000;
-}
-
 #pageLogin .contentLoginPage{
   display: flex;
 }
