@@ -1,0 +1,160 @@
+#pageLogin{
+  overflow: hidden;
+}
+
+#pageLogin .topBar{
+  height: 100px;
+  display: flex;
+  background-color: #00ADB5;
+  border-bottom: 2px solid #000;
+}
+
+#pageLogin .contentLoginPage{
+  display: flex;
+}
+
+#pageLogin .contentWrapper {
+  width: 75%;
+  height: calc(100vh - 100px);
+}
+
+#pageLogin #imageBackgroud{
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  display: flex;
+  align-items: center
+}
+
+#pageLogin #containerLoginText .sloganLabel{
+  margin-left:auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 30px;
+}
+
+#pageLogin #containerLoginText .versatileLabel{
+  display: flex;
+  margin-left: 10%;
+  font-size: 30px;
+}
+#pageLogin #containerLoginText .versatileLabel h3{
+  padding-right: 50px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#pageLogin #containerLoginText .fastLabel{
+  margin-left: 10%;
+  display: flex;
+  font-size: 30px;
+}
+
+#pageLogin #containerLoginText .fastLabel h3{
+  padding-right: 55px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#pageLogin #containerLoginText .accessibleLabel{
+  margin-left: 10%;
+  display: flex;
+  font-size: 30px;
+}
+
+#pageLogin #containerLoginText .accessibleLabel h3{
+  padding-right: 20px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#pageLogin #sidebar {
+  width: 25%;
+  height: calc(100vh - 100px);
+  background-color: #00ADB5;
+}
+
+#pageLogin #sidebar .loginLabel h1{
+  margin-top: 50px;
+  font-size: 55px;
+  width: 100%;
+  justify-content:center;
+  align-items:center;
+  display: flex;
+}
+
+#pageLogin #sidebar .emailContainer h3{
+  margin-top: 50px;
+  font-size: 25px;
+  width: 100%;
+  padding-left: 20%;
+  display: flex;
+}
+#pageLogin #sidebar .emailContainer #inputEmail{
+  font-size: 20px;
+  width: 70%;
+  height: 60px;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 20%;
+}
+
+#pageLogin #sidebar .passwordContainer h3{
+  margin-top: 20px;
+  font-size: 25px;
+  width: 100%;
+  padding-left: 20%;
+  display: flex;
+}
+#pageLogin #sidebar .passwordContainer #inputPassword{
+  font-size: 20px;
+  width: 70%;
+  height: 60px;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 20%;
+}
+#pageLogin #sidebar .resetPasswordContainer #resetPassword{
+  margin-top: 5px;
+  font-size: 22px;
+  width: 100%;
+  text-align: right;
+  padding-right: 25%;
+  float: right;
+}
+
+#pageLogin .loginButton {
+  margin-top: 50px;
+  font-size: 55px;
+  width: 100%;
+  justify-content:center;
+  align-items:center;
+  display: flex;
+}
+
+#pageLogin .loginButton #login{
+  height: 60px;
+  background-color: #0B797E;
+  width: 200px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 25px;
+}
+
+#pageLogin .newRegisterButton{
+  margin-top: 50px;
+  font-size: 55px;
+  width: 100%;
+  justify-content:center;
+  align-items:center;
+  display: flex;
+}
+
+#pageLogin .newRegisterButton #newRegister{
+  height: 60px;
+  width: 200px;
+  background-color: #49E6ED;
+  border-radius: 10px;
+}
