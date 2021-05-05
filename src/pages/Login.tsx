@@ -1,8 +1,7 @@
 import React from 'react';
 
-
-import { FiArrowRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+// import { FiArrowRight } from 'react-icons/fi';
+// import { Link } from 'react-router-dom';
 
 import trademark from '../images/trademark.png';
 import imageBackgroud from '../images/image_backgroud.png';
@@ -34,7 +33,7 @@ function Login() {
             </div>
             <div className="accessibleLabel">
               <h3>Acessível</h3>
-              <img src={check} alt="Background"/>
+              <img src={check} alt="Background" />
             </div>
           </main>
         </div>
@@ -53,15 +52,15 @@ function Login() {
           </div>
           <div className="resetPasswordContainer">
             <a href="" id="resetPassword">Recuperar senha</a>
-            <i></i>
+            <i />
           </div>
           <div className="loginButton">
-            <button id="login"  type="submit">Login</button>
+            <button id="login" type="submit">Login</button>
           </div>
           <div className="newRegisterButton">
             <button id="newRegister" type="submit">
               Novo Aqui?
-              <br></br>
+              <br />
               Crie sua conta
             </button>
           </div>
