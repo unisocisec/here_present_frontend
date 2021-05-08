@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
 import Topbar from "../components/topBar";
+import PrimaryButton from "../components/PrimaryButton";
 
 import '../styles/pages/login.css';
 
@@ -54,14 +55,14 @@ function Login() {
             <i></i>
           </div>
           <div className="loginButton">
-            <button id="login"  type="submit">Login</button>
+            <PrimaryButton type="button" id="loginButton">Login</PrimaryButton>
           </div>
           <div className="newRegisterButton">
-            <button id="newRegister" type="submit">
+            <PrimaryButton type="button" id="newRegister">
               Novo Aqui?
               <br></br>
               Crie sua conta
-            </button>
+            </PrimaryButton>
           </div>
         </div>
       </div>
