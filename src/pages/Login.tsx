@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
-import Topbar from "../components/topBar";
+import Topbar from "../components/TopBar";
+import InputText from "../components/InputText";
 import PrimaryButton from "../components/PrimaryButton";
 
 import '../styles/pages/login.css';
@@ -16,7 +17,6 @@ function Login() {
     <div id="pageLogin">
       <Topbar />
       <div className="contentLoginPage">
-
         <div className="contentWrapper">
           <img id="imageBackgroud" src={imageBackgroud} alt="Background"/>
           <main id="containerLoginText">
@@ -44,11 +44,11 @@ function Login() {
           </div>
           <div className="emailContainer">
             <h3>E-mail</h3>
-            <input id="inputEmail" type="text" placeholder="Insira o seu email"/>
+            <InputText id="inputEmail" placeholder="Insira o seu email"/>
           </div>
           <div className="passwordContainer">
             <h3>Senha</h3>
-            <input id="inputPassword" type="password" placeholder="Insira a sua senha"/>
+            <InputText id="inputPassword" type="password" placeholder="Insira a sua senha"/>
           </div>
           <div className="resetPasswordContainer">
             <a href="" id="resetPassword">Recuperar senha</a>
