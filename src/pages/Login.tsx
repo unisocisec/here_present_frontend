@@ -4,20 +4,19 @@ import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import trademark from '../images/trademark.png';
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
+import Topbar from "../components/TopBar";
+import InputText from "../components/InputText";
+import PrimaryButton from "../components/PrimaryButton";
 
 import '../styles/pages/login.css';
 
 function Login() {
   return (
     <div id="pageLogin">
-      <div className="topBar">
-        <img id="trademark" src={trademark} alt="trademark"/>
-      </div>
+      <Topbar />
       <div className="contentLoginPage">
-
         <div className="contentWrapper">
           <img id="imageBackgroud" src={imageBackgroud} alt="Background"/>
           <main id="containerLoginText">
@@ -45,25 +44,25 @@ function Login() {
           </div>
           <div className="emailContainer">
             <h3>E-mail</h3>
-            <input id="inputEmail" type="text" placeholder="Insira o seu email"/>
+            <InputText id="inputEmail" placeholder="Insira o seu email"/>
           </div>
           <div className="passwordContainer">
             <h3>Senha</h3>
-            <input id="inputPassword" type="password" placeholder="Insira a sua senha"/>
+            <InputText id="inputPassword" type="password" placeholder="Insira a sua senha"/>
           </div>
           <div className="resetPasswordContainer">
             <a href="" id="resetPassword">Recuperar senha</a>
             <i></i>
           </div>
           <div className="loginButton">
-            <button id="login"  type="submit">Login</button>
+            <PrimaryButton type="button" id="loginButton">Login</PrimaryButton>
           </div>
           <div className="newRegisterButton">
-            <button id="newRegister" type="submit">
+            <PrimaryButton type="button" id="newRegister">
               Novo Aqui?
               <br></br>
               Crie sua conta
-            </button>
+            </PrimaryButton>
           </div>
         </div>
       </div>

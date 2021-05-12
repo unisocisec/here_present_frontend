@@ -1,0 +1,57 @@
+#pageAnswerCall #imageBackgroud{
+  position: absolute;
+  filter: blur(4px);
+  right:0;
+  height: 100%;
+  z-index: -1;
+}
+
+#pageAnswerCall .callListName{
+  margin-top: 20px;
+  font-size: 28px;
+  text-align: center;
+}
+
+
+#pageAnswerCall .containerBackground{
+  background-color: #56aeb5;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 500px;
+  border: 1px solid #222831;
+  border-radius: 10px;
+  filter: drop-shadow(0px 0px 20px #000000);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 25px;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#pageAnswerCall h4{
+  margin-top: 10px;
+  font-size: 22px;
+  width: 100%;
+  display: flex;
+}
+
+#pageAnswerCall .containerBackground .formCallList{
+  margin-top: 20px;
+}
+
+#pageAnswerCall .containerBackground .newRegisterButton{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+#pageAnswerCall .containerBackground .inputText{
+  height: 50px;
+  width: 350px;
+}

@@ -2,13 +2,6 @@
   overflow: hidden;
 }
 
-#pageLogin .topBar{
-  height: 100px;
-  display: flex;
-  background-color: #00ADB5;
-  border-bottom: 2px solid #000;
-}
-
 #pageLogin .contentLoginPage{
   display: flex;
 }
@@ -134,18 +127,8 @@
   display: flex;
 }
 
-#pageLogin .loginButton #login{
-  height: 60px;
-  background-color: #0B797E;
-  width: 200px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 25px;
-}
-
 #pageLogin .newRegisterButton{
   margin-top: 50px;
-  font-size: 55px;
   width: 100%;
   justify-content:center;
   align-items:center;
@@ -153,8 +136,12 @@
 }
 
 #pageLogin .newRegisterButton #newRegister{
-  height: 60px;
-  width: 200px;
   background-color: #49E6ED;
-  border-radius: 10px;
+  color: #222831;
+  font-size: 22px;
+}
+
+#pageLogin .newRegisterButton #newRegister:hover {
+  background: #0B797E;
+  color: #FFF;
 }
