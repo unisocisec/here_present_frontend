@@ -1,0 +1,40 @@
+.conteiner {
+    display:grid;
+    grid-template-columns: 2fr 5fr;
+    grid-template-rows: 11vh 89vh;
+    grid-template-areas: "L T" "C C" 
+}
+
+.components {
+    grid-area: T;
+    display: flex;
+    flex-direction: row;
+    background: #00ADB5;
+    border-bottom: 2px solid #000;
+}
+.logoTopBar {
+    grid-area: L;
+    background: #00ADB5;
+    border-bottom: 2px solid #000;
+}
+.content {
+    grid-area: C;
+    background: #E5E5E5;
+}
+
+.conteiner .logoTopBar #trademark{
+    height: 100%;
+}
+
+.conteiner .components #avatar{
+    height: 80%;
+    margin-left: auto;
+    margin-right: 3%;
+    margin-top: 10px;
+}
+
+.conteiner .components #buttonMain {
+    margin-left: 65%;
+    margin-top: 15px ;
+    height: 60%;
+}

@@ -1,12 +1,17 @@
 import React from 'react';
+import { ChakraProvider } from "@chakra-ui/react"
 
+import 'react-calendar/dist/Calendar.css';
 import './styles/global.css';
 
-import Route from './routes';
+
+import Route from './config/routes';
 
 function App() {
   return (
-    <Route />
+    <ChakraProvider>
+      <Route />
+    </ChakraProvider>
   );
 }
 
