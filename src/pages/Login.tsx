@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
 import Topbar from "../components/TopBar";
+import InputPassword from "../components/InputPassword"
 import InputText from "../components/InputText";
 import PrimaryButton from "../components/PrimaryButton";
 
@@ -48,10 +49,10 @@ function Login() {
           </div>
           <div className="passwordContainer">
             <h3>Senha</h3>
-            <InputText id="inputPassword" type="password" placeholder="Insira a sua senha"/>
+            <InputPassword id="inputPassword"></InputPassword>
           </div>
           <div className="resetPasswordContainer">
-            <a href="" id="resetPassword">Recuperar senha</a>
+            <a href="/" id="resetPassword">Recuperar senha</a>
             <i></i>
           </div>
           <div className="loginButton">
