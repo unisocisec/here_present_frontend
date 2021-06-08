@@ -1,8 +1,8 @@
 .conteiner {
     display:grid;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: 11vh 89vh;
-    grid-template-areas: "L T" "C C" 
+    grid-template-columns: minmax(300px, 20%) minmax(900px, 80%);
+    grid-template-rows: minmax(68px, 8vh) minmax(700px, 84vh);
+    grid-template-areas: "L T" "C C";
 }
 
 .components {

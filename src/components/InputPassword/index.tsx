@@ -1,3 +1,5 @@
+// nao usar descontinuado
+
 import React from 'react';
 import './styles.css';
 import { Input, InputGroup, Button } from "@chakra-ui/react"

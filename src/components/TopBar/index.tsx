@@ -1,4 +1,4 @@
-
+// nao usar descontinuado
 import React from 'react';
 
 import './styles.css';

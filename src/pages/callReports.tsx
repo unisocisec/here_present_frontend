@@ -1,35 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+
+import { Repository } from '../config/store/ducks/repositories/types';
+import { ApplicationState } from '../config/store';
+
+import * as RepositoriesActions from '../config//store/ducks/repositories/actions';
 
 import TemplatePage from '../components/templatePage';
-import { Table, Thead, Tbody, Tr, Th, Td, Button, Select, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Button, Select, Tabs, TabList, Tab } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 
 import '../styles/pages/callReports.css';
 
 
-interface props {
+interface StateProps {
+  repositories: Repository[]
+}
+
+interface DispatchProps {
+  loadRequest(): void
+}
+interface OwnProps {
   ReactTable?: keyof JSX.IntrinsicElements;
 }
 
-// interface state {
+type Props = StateProps & DispatchProps & OwnProps
 
-// }
-
-export default class callReports extends React.Component<props /*, state */> {
-  tableColumns: { Header: string; accessor: string; style: { alignSelf: string; textAlign: string; }; minWidth: number; }[];
-
-
-  constructor(props: props) {
-    super(props);
-    this.tableColumns = [
-      {
-        Header: 'Linha',
-        accessor: 'lineNumber',
-        style: { alignSelf: 'center', textAlign: 'center' },
-        minWidth: 100
-      },
-    ];
-  }
+class callReports extends Component<Props /*, state */> {
 
   render(): JSX.Element {
 
@@ -110,3 +108,10 @@ export default class callReports extends React.Component<props /*, state */> {
   }
 }
 
+const mapStateToProps = (state: ApplicationState) => ({
+  repositories: state.repositories.data,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(RepositoriesActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(callReports);
