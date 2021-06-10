@@ -1,37 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import TemplatePage from '../components/templatePage';
-import { Table, Thead, Tbody, Tr, Th, Td, Button, Select, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Button, Select, Tabs, TabList, Tab } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 
 import '../styles/pages/callReports.css';
 
 
-interface props {
-  ReactTable?: keyof JSX.IntrinsicElements;
-}
+export default class callReports extends Component{
 
-// interface state {
-
-// }
-
-export default class callReports extends React.Component<props /*, state */> {
-  tableColumns: { Header: string; accessor: string; style: { alignSelf: string; textAlign: string; }; minWidth: number; }[];
-
-
-  constructor(props: props) {
-    super(props);
-    this.tableColumns = [
-      {
-        Header: 'Linha',
-        accessor: 'lineNumber',
-        style: { alignSelf: 'center', textAlign: 'center' },
-        minWidth: 100
-      },
-    ];
-  }
-
-  render(): JSX.Element {
+  render() {
 
     return (
       <TemplatePage
@@ -109,4 +87,3 @@ export default class callReports extends React.Component<props /*, state */> {
     )
   }
 }
-
