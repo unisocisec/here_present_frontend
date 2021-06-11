@@ -3,9 +3,12 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import './styles.css';
 
-export default function PrimaryButton() {
-  return (
-    <button className="primary-button">
-    </button>
-  );
+export default class PrimaryButton extends React.Component{
+  render(){
+    return (
+      <button className="primary-button" {...this.props}>
+        {this.props.children}
+      </button>
+    );
+  }
 }
