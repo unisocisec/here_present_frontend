@@ -1,13 +1,24 @@
 # here_present_frontend
 
-<details>
-  <summary markdown="span">This is the summary text, click me to expand</summary>
+## Requirements
++ [Backend](https://github.com/unisocisec/here_present_backend)
 
-  This is the detailed text.
+### Quick Start
+1. Run [Backend](https://github.com/unisocisec/here_present_backend) project
 
-  We can still use markdown, but we need to take the additional step of using the `parse_block_html` option as described in the [Mix HTML + Markdown Markup section](#mix-html--markdown-markup).
+### Documentation
++ [Documentation API in POSTMAN](https://documenter.getpostman.com/view/10306115/TzY4ea5F)
 
-  You can learn more about expected usage of this approach in the [GitLab UI docs](https://gitlab-org.gitlab.io/gitlab-ui/?path=/story/base-collapse--default) though the solution we use above is specific to usage in markdown.
-</details>
+### Default users in db:populate
 
++ Email
+  + `user@default.com`
++ password:
+  + `password1234`
+  
+## Contributing
 
+* Fork it
+* Write your changes
+* Commit
+* Send a pull request
