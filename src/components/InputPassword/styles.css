@@ -1,28 +1,6 @@
-/* .inputPassword{
+.inputPassword{
   font-size: 22px;
   border-radius: 10px;
   margin-top: 5px;
+  background: #E2E8F0 !important;
 }
-
-.chakra-input__group{
-  width: 100%;
-  font-size: 20px;
-  height: 60px;
-  border-radius: 10px;
-  margin-top: 5px;
-  display: flex !important;
-  margin-left: 20%;
-}
-
-.chakra-input{
-  width: 70%;
-}
-
-.chakra-button{
-  position: absolute !important;
-  top: 20px;
-  right: 150px;
-  background: none !important;
-  border: none !important;
-}
- */

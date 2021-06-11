@@ -1,11 +1,7 @@
-// nao usar descontinuado
-
 import React from 'react';
 import './styles.css';
-import { Input, InputGroup, Button } from "@chakra-ui/react"
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-
+import { Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react"
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 export default function PasswordInput({ ...props }) {
   const [show, setShow] = React.useState(false)
@@ -19,9 +15,11 @@ export default function PasswordInput({ ...props }) {
         placeholder="Insira a sua senha"
         {...props}
       />
-      <Button onClick={handleClick}>
-        {show ? <Visibility /> : <VisibilityOff />}
-      </Button>
+      <InputRightElement width="9rem" height="4.5rem">
+        <Button onClick={handleClick}>
+          {show ? <ViewIcon /> : <ViewOffIcon />}
+        </Button>
+      </InputRightElement>
     </InputGroup>
   )
 }

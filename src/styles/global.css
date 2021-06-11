@@ -7,6 +7,11 @@ a {
   color: #000;
   text-decoration: none;
 }
+
+Input::placeholder { /* Most modern browsers support this now. */
+  color: #222831;
+}
+
 body, input, button, textarea {
   font: 600 18px Ruda, sans-serif;
 }

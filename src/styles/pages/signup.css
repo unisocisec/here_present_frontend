@@ -50,9 +50,11 @@
   margin-left: 20%;
 }
 
-#pageSignup #sidebar .containerStyle .passwordContainers #inputPassword{
+#pageSignup #sidebar .containerStyle .passwordContainer #inputPassword{
   width: 70%;
   height: 60px;
+  margin-top: 5px;
+  margin-left: 20%;
 }
 
 #pageSignup .signupButton {
