@@ -5,8 +5,7 @@ import './styles.css';
 
 export default function PrimaryButton() {
   return (
-    <button className="primary-button" {...props}>
-      {children}
+    <button className="primary-button">
     </button>
   );
 }
