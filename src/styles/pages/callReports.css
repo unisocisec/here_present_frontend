@@ -16,6 +16,10 @@
     grid-area: A;
 }
 
+.selection {
+    max-width: 350px;
+}
+
 .table {
     grid-area: T;
     width: 95%; 

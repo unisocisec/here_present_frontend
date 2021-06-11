@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
 import '../styles/pages/callReports.css';
 
 
-export default class callReports extends Component{
+export default class callReports extends Component {
 
   render() {
 
@@ -19,11 +19,13 @@ export default class callReports extends Component{
       >
         <div className='callReports'>
           <div className='callSelection'>
-            <Select placeholder="Selecione..." borderColor="#00ADB5" size="lg" >
-              <option value="">Chamada 1</option>
-              <option value="" selected>Chamada 2</option>
-              <option value="">Chamada 3</option>
-            </Select>
+            <div className="selection">
+              <Select placeholder="Selecione..." borderColor="#00ADB5" size="lg" >
+                <option value="">Chamada 1</option>
+                <option value="" selected>Chamada 2</option>
+                <option value="">Chamada 3</option>
+              </Select>
+            </div>
             <Calendar className='calendar' />
           </div>
           <div className='actions'>
