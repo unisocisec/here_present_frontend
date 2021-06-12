@@ -1,23 +1,23 @@
 import './styles.css';
 
-function ClassCard () {
-    return (
-        <div 
-            className={`order-card-container`}
-            /*onClick={() => onSelectProduct(product)}*/
-        >
-            <h3 className="order-card-title">
-                UC - Modelagem
-            </h3>
-            
-            <div className="order-card-description">
+function ClassCard ({name, orderStudents, orderNightly}) {
+  return (
+    <div 
+        className={`order-card-container`}
+        /*onClick={() => onSelectProduct(product)}*/
+    >
+        <h3 className="order-card-title">
+            {name}
+        </h3>
+        
+        <div className="order-card-description">
             <p>
-                <span className="order-students">18 Alunos</span>
-                <span className="order-nightly">Noturno</span>
+                <span className="order-students">{orderStudents} Alunos</span>
+                <span className="order-nightly">{orderNightly}</span>
             </p>
-            </div>
         </div>
-    )
+    </div>
+  )
 }
 
 export default ClassCard;
