@@ -1,23 +1,27 @@
 import './styles.css';
 
-function ClassCard () {
-    return (
-        <div 
-            className={`order-card-container`}
-            /*onClick={() => onSelectProduct(product)}*/
-        >
-            <h3 className="order-card-title">
-                UC - Modelagem
-            </h3>
-            
-            <div className="order-card-description">
-            <p>
-                <span className="order-students">18 Alunos</span>
-                <span className="order-nightly">Noturno</span>
-            </p>
-            </div>
-        </div>
-    )
+function ClassCard ({dataKey, name, school, studentCount, shift}) {
+  async function onSelectProduct(key){
+    // history.push('/ClassesBoard');
+    console.log(dataKey)
+  }
+  return (
+    <div className={`order-card-container`} onClick={() => onSelectProduct({dataKey})}>
+      <h3 className="order-card-title">
+        {name}
+      </h3>
+      <div className="order-card-description">
+        <h3 className="order-card-school">
+          {school}
+        </h3>
+        <div className="space-divisor"></div>
+        <p>
+          <span className="order-students">{studentCount + " Alunos"}</span>
+          <span className="order-shift">{shift}</span>
+        </p>
+      </div>
+    </div>
+  )
 }
 
 export default ClassCard;

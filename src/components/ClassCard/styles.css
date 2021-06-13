@@ -63,6 +63,10 @@
   color: var(--secondary-color);
 }
 
+.space-divisor{
+  height: 50px;
+}
+
 .order-card-description p {
   font-weight: normal;
   font-size: 14px;
@@ -76,7 +80,7 @@
   font-weight: bold;
 }
 
-.order-nightly {
+.order-shift {
   float: right;
   font-weight: bold;
 }

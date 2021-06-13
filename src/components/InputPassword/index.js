@@ -16,7 +16,7 @@ export default function PasswordInput({ ...props }) {
         {...props}
       />
       <InputRightElement width="9rem" height="4.5rem">
-        <Button onClick={handleClick}>
+        <Button onClick={() => handleClick()}>
           {show ? <ViewIcon /> : <ViewOffIcon />}
         </Button>
       </InputRightElement>
