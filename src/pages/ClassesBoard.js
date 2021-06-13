@@ -7,7 +7,7 @@ import api from '../services/api'
 import '../styles/pages/classesBoard.css';
 import ClassCard from '../components/ClassCard';
 
-function ClassesBoard() {
+function ClassesBoard({ history }) {
   const [loading, setLoading] = useState(true)
   const cardLoading = [1, 2, 3]
   const [classRooms, setClassRooms] = useState([])

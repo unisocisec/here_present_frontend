@@ -15,7 +15,7 @@ function Routes(){
         <Route path="/" exact Component={Login} isLogin/>
         <Route path="/AnswerCall" exact Component={AnswerCall} isPublic/>
         <Route path="/signup" exact Component={Signup} isLogin/>
-        <Route path="/CallReports" exact Component={CallReports} isPrivate />
+        <Route path="/CallReports/:classroom_id" exact Component={CallReports} isPrivate />
         <Route path="/ClassesBoard" exact Component={ClassesBoard} isPrivate />
       </Switch>
     </BrowserRouter>

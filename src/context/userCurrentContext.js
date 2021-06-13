@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react'
 const UserCurrent = createContext(null)
 
 const UserCurrentProvider = ({ children }) => {
-  const [userCurrent, setUserCurrent] = useState()
+  const [userCurrent, setUserCurrent] = useState("")
 
   return (
     <UserCurrent.Provider value={{ userCurrent, setUserCurrent }}>

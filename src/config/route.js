@@ -14,7 +14,7 @@ export function Route({ isPrivate, isLogin, isPublic, Component, ...rest }) {
     verifyLogged()
   }, [Component])
 
-  if (!logged && isPrivate) {
+  if (!logged && !!isPrivate) {
     toast({
       title: "Sem permissão",
       description: "É necessário logar...",
@@ -24,18 +24,16 @@ export function Route({ isPrivate, isLogin, isPublic, Component, ...rest }) {
       isClosable: true,
     })
     return <Redirect to="/" />
-  }
-
-  if (logged && isLogin) {
+  } else if (logged && !!isLogin) {
     return <Redirect to="/ClassesBoard" />
+  } else {
+    return (
+      <RRDRoute
+        {...rest}
+        render={props => (
+          <Component {...props} />
+        )}
+      />
+    )
   }
-
-  return (
-    <RRDRoute
-      {...rest}
-      render={props => (
-        <Component {...props} />
-      )}
-    />
-  )
 }
