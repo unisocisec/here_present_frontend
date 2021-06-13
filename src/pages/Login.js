@@ -11,8 +11,8 @@ import api from "../services/api";
 import '../styles/pages/login.css';
 
 function Login({ history }) {
-  const [email, setEmail]= useState();
-  const [password, setPassword]= useState();
+  const [email, setEmail]= useState("");
+  const [password, setPassword]= useState("");
   const toast = useToast()
 
   async function setLogin(){

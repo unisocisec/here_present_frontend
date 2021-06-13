@@ -29,7 +29,7 @@
   display: flex;
 }
 #pageSignup #sidebar .containerStyle .emailContainer h3{
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 #pageSignup #sidebar .containerStyle{
@@ -44,7 +44,13 @@
   margin-left: 20%;
 }
 
-#pageSignup #sidebar .containerStyle .nameContainer #inputName{
+#pageSignup #sidebar .containerStyle .firstNameContainer #inputFirstName{
+  width: 70%;
+  height: 60px;
+  margin-left: 20%;
+}
+
+#pageSignup #sidebar .containerStyle .lastNameContainer #inputLastName{
   width: 70%;
   height: 60px;
   margin-left: 20%;

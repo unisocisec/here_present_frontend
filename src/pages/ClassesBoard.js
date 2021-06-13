@@ -18,7 +18,6 @@ function ClassesBoard() {
       const token = localStorage.getItem('token')
       const response = await api.get(`/api/v1/teachers/${teacherId}/teacher_classrooms`, { headers: { Authorization: token } })
       setClassRooms(response.data)
-      // setClassRooms([{ id: response.data, name: 'Modelagem de dados', orderStudents: '18', orderNightly: 'noturno' }, { id: 2, name: 'Modelagem de Software', orderStudents: '18', orderNightly: 'vespertino' }])
       setLoading(false)
     }
     getClassroom()
@@ -36,7 +35,7 @@ function ClassesBoard() {
               <div className="orders-list-items">
                 {loading
                   ? cardLoading.map((cardLoading, i) => <Skeleton key={i} isLoaded={!loading} h="300px" w="300px" />)
-                  : classRooms.map(classRoom => <ClassCard key={classRoom.id} name={classRoom.name} orderStudents={classRoom.orderStudents} orderNightly={classRoom.orderNightly} />)}
+                  : classRooms.map(classRoom => <ClassCard key={classRoom.id} dataKey={classRoom.id} name={classRoom.name} school={classRoom.school} studentCount={classRoom.student_count} shift={classRoom.shift} />)}
               </div>
           </div>
         </div>
