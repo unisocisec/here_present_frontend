@@ -15,7 +15,7 @@ export default function PasswordInput({ ...props }) {
         placeholder="Insira a sua senha"
         {...props}
       />
-      <InputRightElement width="9rem" height="4.5rem">
+      <InputRightElement width="11rem" height="4.5rem">
         <Button onClick={() => handleClick()}>
           {show ? <ViewIcon /> : <ViewOffIcon />}
         </Button>
