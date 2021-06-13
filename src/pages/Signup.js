@@ -18,16 +18,14 @@ function Signup({ history }) {
   async function setSignUp(){
     console.log(email, firstName, lastName, password)
     api.post("/api/v1/teachers", { email: email, first_name: firstName, last_name: lastName, password: password }).then(response => {
-      // localStorage.setItem('token', response.headers.authorization);
-      // localStorage.setItem('teacherId', response.data.id);
-      // toast({
-      //   title: "Login com sucesso",
-      //   description: "Seu login foi efetuado com sucesso.",
-      //   position: "bottom-right",
-      //   status: "success",
-      //   duration: 6000,
-      //   isClosable: true,
-      // })
+      toast({
+        title: "Cadastro com sucesso",
+        description: response.data.message,
+        position: "bottom-right",
+        status: "success",
+        duration: 8000,
+        isClosable: true,
+      })
       history.push('/');
     }).catch(function (error) {
       toast({

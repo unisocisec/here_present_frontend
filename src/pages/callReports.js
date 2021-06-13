@@ -1,91 +1,109 @@
-import React, { Component } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import TemplatePage from '../components/templatePage';
-import { Table, Thead, Tbody, Tr, Th, Td, Button, Select, Tabs, TabList, Tab } from "@chakra-ui/react";
+import StudentReport from '../components/StudentReport';
+import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton, Stack } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
-
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 import '../styles/pages/callReports.css';
+import api from "../services/api";
 
+function ExportAnswers(classroomId){
+  const toast = useToast()
+  const token = localStorage.getItem('token')
+  api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
+    window.open(response.data.path, '_blank')
+  }).catch(err => {
+    toast({
+      title: "Falha na exportação",
+      description: "comunique o suporte em https://github.com/unisocisec/here_present_frontend",
+      position: "bottom-right",
+      status: "error",
+      duration: 6000,
+      isClosable: true,
+    })
+  }
+)}
 
-export default class callReports extends Component {
+function CallReports({ history }) {
+  const toast = useToast()
+  const [loadingStudentAnswers, setLoadingStudentAnswers] = useState(true)
+  const arrayLoading = [1, 2, 3]
+  const classroomId = 1;
+  const [studentAnswers, setStudentAnswers] = useState()
+  const [callLists, setCallLists] = useState([])
 
-  render() {
+  useEffect(() => {
+    async function getStudentAnswers(classroomId) {
+      const token = localStorage.getItem('token')
+      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers`, { headers: { Authorization: token } })
+      setStudentAnswers(response.data)
+      setLoadingStudentAnswers(false)
+    }
+    getStudentAnswers(classroomId)
+    async function getCallLists(classroomId) {
+      const token = localStorage.getItem('token')
+      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
+      setCallLists(response.data)
+    }
+    getCallLists(classroomId)
+  }, [])
 
-    return (
-      <TemplatePage
-        nameButton={'Criar Chamada'}
-        acitiveButton={true}
-        acitiveUser={true}
-      >
-        <div className='callReports'>
-          <div className='callSelection'>
-            <div className="selection">
-              <Select placeholder="Selecione..." borderColor="#00ADB5" size="lg" >
-                <option value="">Chamada 1</option>
-                <option value="" selected>Chamada 2</option>
-                <option value="">Chamada 3</option>
-              </Select>
-            </div>
-            <Calendar className='calendar' />
+  return (
+    <TemplatePage
+      nameButton={'Criar Chamada'}
+      acitiveButton={true}
+      acitiveUser={true}
+    >
+      <div className='callReports'>
+        <div className='callSelection'>
+          <div className="selection">
+            <Select placeholder="Selecione..." borderColor="#00ADB5" size="lg" >
+              {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
+            </Select>
           </div>
-          <div className='actions'>
-            <div className='buttonPosition'>
-              <div className='exportButton'>
-                <Button colorScheme="teal" size="lg">Exportar Chamada</Button>
-              </div>
-              <div className='tabs'>
-                <Tabs variant="enclosed">
-                  <TabList>
-                    <Tab>Relatório</Tab>
-                    <Tab>Membros</Tab>
-                  </TabList>
-                </Tabs>
-              </div>
+          <Calendar className='calendar' />
+        </div>
+        <div className='actions'>
+          <div className='buttonPosition'>
+            <div className='exportButton'>
+              <Button colorScheme="teal" size="lg" type="link"  onClick={ExportAnswers(classroomId)}>Exportar Chamadas</Button>
+              <Link ml="5" href="" isExternal>
+                Link da Chamada <ExternalLinkIcon mx="2px" />
+              </Link>
             </div>
-          </div>
-          <div className='table'>
-            <div className='bard' >
-              <Table variant="striped" colorScheme="teal" >
-                <Thead>
-                  <Tr>
-                    <Th>Nome do aluno </Th>
-                    <Th>E-mail</Th>
-                    <Th>Palavra-Chave</Th>
-                    <Th>Check</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>juca</Td>
-                    <Td>juca@gmail.com</Td>
-                    <Td>teste</Td>
-                    <Td>V</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>juca</Td>
-                    <Td>juca@gmail.com</Td>
-                    <Td>teste</Td>
-                    <Td>V</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>juca</Td>
-                    <Td>juca@gmail.com</Td>
-                    <Td>teste</Td>
-                    <Td>V</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>juca</Td>
-                    <Td>juca@gmail.com</Td>
-                    <Td>teste</Td>
-                    <Td>V</Td>
-                  </Tr>
-                </Tbody>
-              </Table>
+            <div className='tabs'>
+              <Tabs variant="enclosed">
+                <TabList>
+                  <Tab>Relatório</Tab>
+                  {/* <Tab>Membros</Tab> */}
+                </TabList>
+              </Tabs>
             </div>
-
           </div>
         </div>
-      </TemplatePage>
-    )
-  }
+        <div className='table'>
+          <div className='bard' >
+            <Table variant="striped" colorScheme="teal" >
+              <Thead>
+                <Tr>
+                  <Th>Nome do aluno </Th>
+                  <Th>E-mail</Th>
+                  <Th>Palavra-Chave</Th>
+                  <Th>Check</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {loadingStudentAnswers
+                    ? arrayLoading.map((arrayLoading, i) => <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>)
+                    : studentAnswers.map(studentAnswer => <StudentReport key={studentAnswer.id} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />)}
+              </Tbody>
+            </Table>
+          </div>
+        </div>
+        
+      </div>
+    </TemplatePage>
+  )
 }
+
+export default CallReports;
