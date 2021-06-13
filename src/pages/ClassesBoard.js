@@ -14,11 +14,11 @@ function ClassesBoard() {
 
   useEffect(() => {
     async function getClassroom() {
-      const userId = localStorage.getItem('userId')
+      const teacherId = localStorage.getItem('teacherId')
       const token = localStorage.getItem('token')
-    
-      //const response = await api.get(`/api/v1/teachers/${userId}/teacher_classrooms`, { headers: { Authorization: `Bearer ${token}` } })
-      setClassRooms([{ id: 1, name: 'Modelagem de dados', orderStudents: '18', orderNightly: 'noturno' }, { id: 2, name: 'Modelagem de Software', orderStudents: '18', orderNightly: 'vespertino' }])
+      const response = await api.get(`/api/v1/teachers/${teacherId}/teacher_classrooms`, { headers: { Authorization: token } })
+      setClassRooms(response.data)
+      // setClassRooms([{ id: response.data, name: 'Modelagem de dados', orderStudents: '18', orderNightly: 'noturno' }, { id: 2, name: 'Modelagem de Software', orderStudents: '18', orderNightly: 'vespertino' }])
       setLoading(false)
     }
     getClassroom()

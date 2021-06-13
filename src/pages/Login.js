@@ -17,8 +17,8 @@ function Login({ history }) {
 
   async function setLogin(){
     api.post("/auth/sign_in", { email: email, password: password }).then(response => {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.teacher_id);
+      localStorage.setItem('token', response.headers.authorization);
+      localStorage.setItem('teacherId', response.data.id);
       toast({
         title: "Login com sucesso",
         description: "Seu login foi efetuado com sucesso.",
@@ -38,7 +38,6 @@ function Login({ history }) {
         isClosable: true,
       })
     })
-    
   }
   return (
     <div id="pageLogin">
