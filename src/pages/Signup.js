@@ -16,7 +16,6 @@ function Signup({ history }) {
   const toast = useToast()
 
   async function setSignUp(){
-    console.log(email, firstName, lastName, password)
     api.post("/api/v1/teachers", { email: email, first_name: firstName, last_name: lastName, password: password }).then(response => {
       toast({
         title: "Cadastro com sucesso",
@@ -65,7 +64,7 @@ function Signup({ history }) {
             </div>
           </div>
           <div className="signupButton">
-            <PrimaryButton type="button" id="signupButton" onClick={setSignUp}>
+            <PrimaryButton type="button" id="signupButton" onClick={() => setSignUp()}>
               Cadastrar
             </PrimaryButton>
           </div>

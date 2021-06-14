@@ -3,18 +3,9 @@ import { Route as RRDRoute, Redirect } from 'react-router-dom'
 import { useToast } from "@chakra-ui/react"
 
 export function Route({ isPrivate, isLogin, isPublic, Component, ...rest }) {
-  const [logged, setLogged] = useState(false)
   const toast = useToast()
-
-  useEffect(() => {
-    async function verifyLogged() {
-      const token = await localStorage.getItem('token')
-      setLogged(!!token)
-    }
-    verifyLogged()
-  }, [Component])
-
-  if (!logged && !!isPrivate) {
+  const token = localStorage.getItem('token')
+  if (!token && isPrivate) {
     toast({
       title: "Sem permissão",
       description: "É necessário logar...",
@@ -24,7 +15,7 @@ export function Route({ isPrivate, isLogin, isPublic, Component, ...rest }) {
       isClosable: true,
     })
     return <Redirect to="/" />
-  } else if (logged && !!isLogin) {
+  } else if (token && isLogin) {
     return <Redirect to="/ClassesBoard" />
   } else {
     return (

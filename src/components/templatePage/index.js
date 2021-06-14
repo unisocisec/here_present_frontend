@@ -1,44 +1,45 @@
 
 import React from 'react';
-import {Button} from "@chakra-ui/react";
-
+import { Button } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react"
 import '../../styles/components/templatePage.css';
 import trademark from '../../images/trademark.png';
-import avatar from '../../images/avatar.svg';
+// import avatar from '../../images/avatar.svg';
 
-
-export default class templatePage extends React.Component{
-
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  render(){
-    const { acitiveButton, nameButton, acitiveUser } = this.props;
-
-    return (
-      <div className="conteiner">
-        <div className="logoTopBar">
-          <img id="trademark" src={trademark} alt="trademark" />
-        </div>
-        <div className="components">
-          {acitiveButton && (
-            <Button colorScheme="teal"  id="buttonMain" size="lg">{nameButton}</Button>
-          )}
-          {acitiveUser && (
-            <img id="avatar" src={avatar} alt="avatar" />
-          )}
-        </div>
-        <div className="content">
-          {this.props.children}
-        </div>
-      </div>
-    )
+function TemplatePage({ history, ...props }) {
+  const { acitiveButton, nameButton, acitiveUser, children } = props || {};
+  const teacherName = localStorage.getItem('teacherName')
+  async function logOff() {
+    localStorage.clear();
+    history.push('/');
   }
+  return (
+    <div className="conteiner">
+      <div className="logoTopBar">
+        <img id="trademark" src={trademark} alt="trademark" />
+      </div>
+      <div className="components">
+        {acitiveButton && (
+          <Button colorScheme="teal" id="buttonMain" size="lg">{nameButton}</Button>
+        )}
+        {acitiveUser && (
+          <div className="avatar">
+            <Menu>
+              <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'}>
+                <Avatar name={teacherName} />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => logOff()} >Sair</MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+        )}
+      </div>
+      <div className="content">
+        {children}
+      </div>
+    </div>
+  );
 }
 
-
-
-
-
-
+export default TemplatePage;

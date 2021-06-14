@@ -26,6 +26,7 @@ function ClassesBoard({ history }) {
   return (
     <>
     <TemplatePage
+        history={history}
         nameButton={'Criar Turma'}
         acitiveButton={true}
         acitiveUser={true}
