@@ -76,7 +76,7 @@ function AnswerCall() {
             </div>
           </div>
           <div className="newRegisterButton">
-            <PrimaryButton type="button" id="newRegister" onClick={registerStudentAnswer}>
+            <PrimaryButton type="button" id="newRegister" onClick={() => registerStudentAnswer()}>
               Enviar
             </PrimaryButton>
           </div>

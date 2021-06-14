@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useToast } from "@chakra-ui/react"
+import { useToast, Link } from "@chakra-ui/react"
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
 import Topbar from "../components/TopBar";
@@ -19,6 +19,7 @@ function Login({ history }) {
     api.post("/auth/sign_in", { email: email, password: password }).then(response => {
       localStorage.setItem('token', response.headers.authorization);
       localStorage.setItem('teacherId', response.data.id);
+      localStorage.setItem('teacherName', response.data.first_name + " " + response.data.last_name);
       toast({
         title: "Login com sucesso",
         description: "Seu login foi efetuado com sucesso.",
@@ -81,14 +82,16 @@ function Login({ history }) {
             <i></i>
           </div>
           <div className="loginButton">
-            <PrimaryButton type="button" id="loginButton" onClick={setLogin}>Login</PrimaryButton>
+            <PrimaryButton type="button" id="loginButton" onClick={() => setLogin()}>Login</PrimaryButton>
           </div>
           <div className="newRegisterButton">
-            <PrimaryButton type="button" id="newRegister">
-              Novo Aqui?
-              <br></br>
-              Crie sua conta
-            </PrimaryButton>
+            <Link href="/signup">
+              <PrimaryButton type="button" id="newRegister">
+                Novo Aqui?
+                <br></br>
+                Crie sua conta
+              </PrimaryButton>
+            </Link>
           </div>
         </div>
       </div>

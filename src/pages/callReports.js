@@ -7,8 +7,7 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import '../styles/pages/callReports.css';
 import api from "../services/api";
 
-function ExportAnswers(classroomId){
-  const toast = useToast()
+function ExportAnswers(classroomId, toast){
   const token = localStorage.getItem('token')
   api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
     window.open(response.data.path, '_blank')
@@ -27,10 +26,16 @@ function ExportAnswers(classroomId){
 function CallReports({ history }) {
   const toast = useToast()
   const [loadingStudentAnswers, setLoadingStudentAnswers] = useState(true)
-  const arrayLoading = [1, 2, 3]
+  const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
   const classroomId = 1;
+  const [call_list_id, setCallListId] = useState([])
   const [studentAnswers, setStudentAnswers] = useState()
   const [callLists, setCallLists] = useState([])
+
+  function SelectCallListId(CallListId){
+    // console.log(CallListId)
+    // setCallListId(CallListId)
+  }
 
   useEffect(() => {
     async function getStudentAnswers(classroomId) {
@@ -53,11 +58,12 @@ function CallReports({ history }) {
       nameButton={'Criar Chamada'}
       acitiveButton={true}
       acitiveUser={true}
+      history={history}
     >
       <div className='callReports'>
         <div className='callSelection'>
           <div className="selection">
-            <Select placeholder="Selecione..." borderColor="#00ADB5" size="lg" >
+            <Select placeholder="Selecione..." borderColor="#00ADB5" onChange={() => SelectCallListId(this)} size="lg" >
               {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
             </Select>
           </div>
@@ -66,8 +72,8 @@ function CallReports({ history }) {
         <div className='actions'>
           <div className='buttonPosition'>
             <div className='exportButton'>
-              <Button colorScheme="teal" size="lg" type="link"  onClick={ExportAnswers(classroomId)}>Exportar Chamadas</Button>
-              <Link ml="5" href="" isExternal>
+              <Button colorScheme="teal" size="lg" type="link"  onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
+              <Link ml="5" href={`${call_list_id}/AnswerCall`} isExternal>
                 Link da Chamada <ExternalLinkIcon mx="2px" />
               </Link>
             </div>
@@ -95,7 +101,7 @@ function CallReports({ history }) {
               <Tbody>
                 {loadingStudentAnswers
                     ? arrayLoading.map((arrayLoading, i) => <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>)
-                    : studentAnswers.map(studentAnswer => <StudentReport key={studentAnswer.id} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />)}
+                    : studentAnswers.map(studentAnswer => <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />)}
               </Tbody>
             </Table>
           </div>
