@@ -1,3 +1,4 @@
 import axios from "axios";
-const api = axios.create({baseURL: "http://localhost:3000"})
+const BASE_URL = process.env.REACT_APP_WEATHER_BASE_URL;
+const api = axios.create({baseURL: BASE_URL})
 export default api
