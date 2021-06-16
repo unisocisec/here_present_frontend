@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Skeleton } from "@chakra-ui/react"
-import Topbar from "../components/TopBar";
 import TemplatePage from '../components/templatePage';
 import api from '../services/api'
-
 import '../styles/pages/classesBoard.css';
 import ClassCard from '../components/ClassCard';
 

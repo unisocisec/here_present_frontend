@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Route as RRDRoute, Redirect } from 'react-router-dom'
 import { useToast } from "@chakra-ui/react"
 

@@ -1,50 +1,56 @@
 .callReports {
-    display:grid;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: 10vh 75vh;
-    grid-template-areas: "A A" "C T" ;
+  display:grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows: 10vh 75vh;
+  grid-template-areas: "A A" "C T" ;
 }
 
 .callSelection {
-    grid-area: C;
-    width: 70%;  
-    margin-left:10%;
-    margin-top: 10%;
+  grid-area: C;
+  width: 70%;  
+  margin-left:10%;
+  margin-top: 10%;
 }
 
 .actions {
-    grid-area: A;
+  grid-area: A;
 }
 
 .selection {
-    max-width: 350px;
+  max-width: 350px;
 }
 
 .table {
-    grid-area: T;
-    width: 95%; 
-    margin-top: 4%;
+  grid-area: T;
+  width: 95%; 
+  margin-top: 4%;
 }
 
 .buttonPosition {
-    display: flex;
-    flex-direction: row;
-    margin-top: 2%;
-    margin-left: 30%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+  margin-left: 30%;
 }
 .tabs{
-    margin: 0 auto; 
+  margin: 0 auto; 
 }
 
 .calendar {
-    margin-top: 10%;
+  margin-top: 10%;
 }
 
 .bard{
-    border-radius: 12px;
-    border-top:1px solid #00ADB5;
-    border-left: 1px solid #00ADB5;
-    border-right: 1px solid #00ADB5;
-    border-bottom:1px solid #00ADB5;
+  border-radius: 12px;
+  border-top:1px solid #00ADB5;
+  border-left: 1px solid #00ADB5;
+  border-right: 1px solid #00ADB5;
+  border-bottom:1px solid #00ADB5;
+}
+
+.paginateCallReports{
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
 }
 
