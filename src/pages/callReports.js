@@ -9,8 +9,9 @@ import api from "../services/api";
 
 function ExportAnswers(classroomId, toast){
   const token = localStorage.getItem('token')
+  const BASE_URL = process.env.REACT_APP_WEATHER_BASE_URL;
   api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
-    window.open(response.data.path, '_blank')
+    window.open(`${BASE_URL}${response.data.path}`, '_blank')
   }).catch(err => {
     toast({
       title: "Falha na exportação",
@@ -32,7 +33,8 @@ function CallReports({ history }) {
   const [studentAnswers, setStudentAnswers] = useState()
   const [callLists, setCallLists] = useState([])
 
-  function SelectCallListId(CallListId){
+  function SelectCallListId(self){
+    console.log(self, "OIIIII")
     // console.log(CallListId)
     // setCallListId(CallListId)
   }
@@ -65,6 +67,7 @@ function CallReports({ history }) {
           <div className="selection">
             <Select placeholder="Selecione..." borderColor="#00ADB5" onChange={() => SelectCallListId(this)} size="lg" >
               {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
+              <option value="all">'Todas as Chamadas'</option>
             </Select>
           </div>
           <Calendar className='calendar' />
