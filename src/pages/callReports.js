@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import TemplatePage from '../components/templatePage';
 import StudentReport from '../components/StudentReport';
-import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton, Stack } from "@chakra-ui/react";
+import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import '../styles/pages/callReports.css';
 import api from "../services/api";
+import Pagination from '@material-ui/lab/Pagination';
 
 function ExportAnswers(classroomId, toast){
   const token = localStorage.getItem('token')
@@ -29,20 +30,30 @@ function CallReports({ history }) {
   const [loadingStudentAnswers, setLoadingStudentAnswers] = useState(true)
   const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
   const classroomId = 1;
-  const [call_list_id, setCallListId] = useState([])
+  const [callListId, setCallListId] = useState()
+  const [filterAllCallList, setFilterAllCallList] = useState(true)
   const [studentAnswers, setStudentAnswers] = useState()
   const [callLists, setCallLists] = useState([])
+  const [page, setPage] = useState(1);
 
-  function SelectCallListId(self){
-    console.log(self, "OIIIII")
-    // console.log(CallListId)
-    // setCallListId(CallListId)
+  const handleChangePage = (_event, value) => {
+    setPage(value);
+  };
+
+  function SelectCallListId(){
+    const call_list = document.getElementById("selectCallList").value;
+    if (call_list === ""){
+      setFilterAllCallList(true)
+    } else {
+      setFilterAllCallList(false)
+      setCallListId(call_list)
+    }
   }
 
   useEffect(() => {
-    async function getStudentAnswers(classroomId) {
+    async function getStudentAnswers(classroomId, page=1) {
       const token = localStorage.getItem('token')
-      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers`, { headers: { Authorization: token } })
+      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
       setStudentAnswers(response.data)
       setLoadingStudentAnswers(false)
     }
@@ -55,28 +66,30 @@ function CallReports({ history }) {
     getCallLists(classroomId)
   }, [])
 
+  function Aaaaaaa() {
+    if (!!callListId && !filterAllCallList){
+      return false
+    }
+    return true
+  }
+
   return (
-    <TemplatePage
-      nameButton={'Criar Chamada'}
-      acitiveButton={true}
-      acitiveUser={true}
-      history={history}
-    >
+    <TemplatePage nameButton={'Criar Chamada'} acitiveButton={true} acitiveUser={true} history={history}>
       <div className='callReports'>
         <div className='callSelection'>
           <div className="selection">
-            <Select placeholder="Selecione..." borderColor="#00ADB5" onChange={() => SelectCallListId(this)} size="lg" >
+            <Select placeholder="Todas as Chamadas" id="selectCallList" borderColor="#00ADB5" onChange={() => SelectCallListId()} size="lg" >
               {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
               <option value="all">'Todas as Chamadas'</option>
             </Select>
           </div>
-          <Calendar className='calendar' />
+          <Calendar className='calendar'/>
         </div>
         <div className='actions'>
           <div className='buttonPosition'>
             <div className='exportButton'>
               <Button colorScheme="teal" size="lg" type="link"  onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
-              <Link ml="5" href={`${call_list_id}/AnswerCall`} isExternal>
+              <Link ml="5" href={`${9}/AnswerCall`} isExternal>
                 Link da Chamada <ExternalLinkIcon mx="2px" />
               </Link>
             </div>
@@ -91,6 +104,7 @@ function CallReports({ history }) {
           </div>
         </div>
         <div className='table'>
+          <Pagination className="paginateCallReports" count={10} page={page} onChange={handleChangePage} />
           <div className='bard' >
             <Table variant="striped" colorScheme="teal" >
               <Thead>
@@ -102,14 +116,19 @@ function CallReports({ history }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {loadingStudentAnswers
-                    ? arrayLoading.map((arrayLoading, i) => <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>)
-                    : studentAnswers.map(studentAnswer => <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />)}
+                {
+                  loadingStudentAnswers
+                  ? arrayLoading.map((arrayLoading, i) =>
+                    <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>
+                  )
+                  : studentAnswers.map(studentAnswer =>
+                    <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />
+                  )
+                }
               </Tbody>
             </Table>
           </div>
         </div>
-        
       </div>
     </TemplatePage>
   )
