@@ -5,9 +5,13 @@
 
 ## Requirements
 + [Backend](https://github.com/unisocisec/here_present_backend)
+  + React
+  + Javascript
+  + [Chakra-Ui](https://chakra-ui.com/)
 
 ### Quick Start
 1. Run [Backend](https://github.com/unisocisec/here_present_backend) project
+2. Access http://localhost:3001/
 
 ### Documentation
 + [Documentation API in POSTMAN](https://documenter.getpostman.com/view/10306115/TzY4ea5F)
