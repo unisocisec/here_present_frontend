@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton, Stack } from "@chakra-ui/react";
+import { ExternalLinkIcon } from '@chakra-ui/icons'
+
 import TemplatePage from '../components/templatePage';
 import StudentReport from '../components/StudentReport';
-import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton, Stack } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import api from '../services/api';
+import CreateCall from '../components/modal/createCall/index'
+
 import '../styles/pages/callReports.css';
-import api from "../services/api";
 
 function ExportAnswers(classroomId, toast){
   const token = localStorage.getItem('token')
@@ -31,6 +34,7 @@ function CallReports({ history }) {
   const [call_list_id, setCallListId] = useState([])
   const [studentAnswers, setStudentAnswers] = useState()
   const [callLists, setCallLists] = useState([])
+  const [showCreateCall, setShowCreateCall] = useState(false)
 
   function SelectCallListId(CallListId){
     // console.log(CallListId)
@@ -54,61 +58,69 @@ function CallReports({ history }) {
   }, [])
 
   return (
-    <TemplatePage
-      nameButton={'Criar Chamada'}
-      acitiveButton={true}
-      acitiveUser={true}
-      history={history}
-    >
-      <div className='callReports'>
-        <div className='callSelection'>
-          <div className="selection">
-            <Select placeholder="Selecione..." borderColor="#00ADB5" onChange={() => SelectCallListId(this)} size="lg" >
-              {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
-            </Select>
-          </div>
-          <Calendar className='calendar' />
-        </div>
-        <div className='actions'>
-          <div className='buttonPosition'>
-            <div className='exportButton'>
-              <Button colorScheme="teal" size="lg" type="link"  onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
-              <Link ml="5" href={`${call_list_id}/AnswerCall`} isExternal>
-                Link da Chamada <ExternalLinkIcon mx="2px" />
-              </Link>
+    <>
+      <TemplatePage
+        nameButton={'Criar Chamada'}
+        acitiveButton={true}
+        acitiveUser={true}
+        history={history}
+        onClick={() => setShowCreateCall(true)}
+      >
+        <div className='callReports'>
+          <div className='callSelection'>
+            <div className="selection">
+              <Select placeholder="Selecione..." borderColor="#00ADB5" onChange={() => SelectCallListId(this)} size="lg" >
+                {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
+              </Select>
             </div>
-            <div className='tabs'>
-              <Tabs variant="enclosed">
-                <TabList>
-                  <Tab>Relatório</Tab>
-                  {/* <Tab>Membros</Tab> */}
-                </TabList>
-              </Tabs>
+            <Calendar className='calendar' />
+          </div>
+          <div className='actions'>
+            <div className='buttonPosition'>
+              <div className='exportButton'>
+                <Button colorScheme="teal" size="lg" type="link" onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
+                <Link ml="5" href={`${call_list_id}/AnswerCall`} isExternal>
+                  Link da Chamada <ExternalLinkIcon mx="2px" />
+                </Link>
+              </div>
+              <div className='tabs'>
+                <Tabs variant="enclosed">
+                  <TabList>
+                    <Tab>Relatório</Tab>
+                    {/* <Tab>Membros</Tab> */}
+                  </TabList>
+                </Tabs>
+              </div>
             </div>
           </div>
-        </div>
-        <div className='table'>
-          <div className='bard' >
-            <Table variant="striped" colorScheme="teal" >
-              <Thead>
-                <Tr>
-                  <Th>Nome do aluno </Th>
-                  <Th>E-mail</Th>
-                  <Th>Palavra-Chave</Th>
-                  <Th>Check</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {loadingStudentAnswers
+          <div className='table'>
+            <div className='bard' >
+              <Table variant="striped" colorScheme="teal" >
+                <Thead>
+                  <Tr>
+                    <Th>Nome do aluno </Th>
+                    <Th>E-mail</Th>
+                    <Th>Palavra-Chave</Th>
+                    <Th>Check</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {loadingStudentAnswers
                     ? arrayLoading.map((arrayLoading, i) => <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>)
                     : studentAnswers.map(studentAnswer => <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />)}
-              </Tbody>
-            </Table>
+                </Tbody>
+              </Table>
+            </div>
           </div>
+
         </div>
-        
-      </div>
-    </TemplatePage>
+      </TemplatePage>
+      {showCreateCall &&
+        <CreateCall 
+          closeModal={() => setShowCreateCall(false)}
+        />
+      }
+    </>
   )
 }
 

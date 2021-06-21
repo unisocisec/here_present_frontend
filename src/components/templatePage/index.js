@@ -7,7 +7,7 @@ import trademark from '../../images/trademark.png';
 // import avatar from '../../images/avatar.svg';
 
 function TemplatePage({ history, ...props }) {
-  const { acitiveButton, nameButton, acitiveUser, children } = props || {};
+  const { acitiveButton, nameButton, acitiveUser, children, onClick } = props || {};
   const teacherName = localStorage.getItem('teacherName')
   async function logOff() {
     localStorage.clear();
@@ -20,7 +20,7 @@ function TemplatePage({ history, ...props }) {
       </div>
       <div className="components">
         {acitiveButton && (
-          <Button colorScheme="teal" id="buttonMain" size="lg">{nameButton}</Button>
+          <Button colorScheme="teal" id="buttonMain" size="lg" onClick={ () => onClick()} >{nameButton}</Button>
         )}
         {acitiveUser && (
           <div className="avatar">
