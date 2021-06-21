@@ -5,9 +5,9 @@
 
 ## Requirements
 + [Backend](https://github.com/unisocisec/here_present_backend)
-  + React
-  + Javascript
-  + [Chakra-Ui](https://chakra-ui.com/)
++ React
++ Javascript
++ [Chakra-Ui](https://chakra-ui.com/)
 
 ### Quick Start
 1. Run [Backend](https://github.com/unisocisec/here_present_backend) project
