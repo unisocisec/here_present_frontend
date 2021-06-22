@@ -28,12 +28,11 @@ function ExportAnswers(classroomId, toast) {
 
 function CallReports({ history }) {
   const toast = useToast()
-  const [loadingStudentAnswers, setLoadingStudentAnswers] = useState(true)
   const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
   const classroomId = useParams().classroom_id
   const [callListId, setCallListId] = useState()
+  const [studentAnswers, setStudentAnswers] = useState([])
   const [filterAllCallList, setFilterAllCallList] = useState(true)
-  const [studentAnswers, setStudentAnswers] = useState()
   const [callLists, setCallLists] = useState([])
   const [page, setPage] = useState(1);
 
@@ -41,22 +40,12 @@ function CallReports({ history }) {
     setPage(value);
   };
 
-  function SelectCallListId() {
-    const call_list = document.getElementById("selectCallList").value;
-    if (call_list === "") {
-      setFilterAllCallList(true)
-    } else {
-      setFilterAllCallList(false)
-      setCallListId(call_list)
-    }
-  }
 
   useEffect(() => {
     async function getStudentAnswers(classroomId, page = 1) {
       const token = localStorage.getItem('token')
       const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
       setStudentAnswers(response.data)
-      setLoadingStudentAnswers(false)
     }
     getStudentAnswers(classroomId)
     async function getCallLists(classroomId) {
@@ -64,14 +53,18 @@ function CallReports({ history }) {
       const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
       setCallLists(response.data)
     }
+    console.log("asddasasd", classroomId, )
     getCallLists(classroomId)
-  }, [])
+  }, [filterAllCallList])
 
-  function Aaaaaaa() {
-    if (!!callListId && !filterAllCallList) {
-      return false
+  function SelectCallListId() {
+    const call_list = document.getElementById("selectCallList").value;
+    if (call_list === "" || call_list === "all") {
+      setFilterAllCallList(true)
+    } else {
+      setFilterAllCallList(false)
+      setCallListId(call_list)
     }
-    return true
   }
 
   return (
@@ -81,7 +74,6 @@ function CallReports({ history }) {
           <div className="selection">
             <Select placeholder="Todas as Chamadas" id="selectCallList" borderColor="#00ADB5" onChange={() => SelectCallListId()} size="lg" >
               {callLists.map(callList => <option key={`call_list_${callList.id}`} value={callList.id}>{callList.title}</option>)}
-              <option value="all">Todas as Chamadas</option>
             </Select>
           </div>
           <Calendar className='calendar' />
@@ -118,12 +110,13 @@ function CallReports({ history }) {
               </Thead>
               <Tbody key={'tbody'}>
                 {
-                  loadingStudentAnswers
-                    ? arrayLoading.map(i =>
-                      <Tr key={`Tr_${i}`}><Td key={`Td_${i}`}><Skeleton key={`Skeleton_${i}`} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>
+                  
+                  filterAllCallList
+                    ? studentAnswers.map(studentAnswer =>
+                      <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={studentAnswer.answer_correct} />
                     )
-                    : studentAnswers.map(studentAnswer =>
-                      <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />
+                    : arrayLoading.map(i =>
+                      <Tr key={`Tr_${i}`}><Td key={`Td_${i}`}><Skeleton key={`Skeleton_${i}`} isLoaded={!filterAllCallList} h="40px" /></Td></Tr>
                     )
                 }
               </Tbody>
