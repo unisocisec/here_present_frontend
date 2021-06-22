@@ -137,6 +137,7 @@ function CallReports({ history }) {
       {showCreateCall &&
         <CreateCall 
           closeModal={() => setShowCreateCall(false)}
+          classroomId={classroomId}
         />
       }
     </TemplatePage>
