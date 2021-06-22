@@ -6,9 +6,10 @@ import Calendar from 'react-calendar';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import '../styles/pages/callReports.css';
 import api from "../services/api";
+import { useParams } from 'react-router-dom'
 import Pagination from '@material-ui/lab/Pagination';
 
-function ExportAnswers(classroomId, toast){
+function ExportAnswers(classroomId, toast) {
   const token = localStorage.getItem('token')
   const BASE_URL = process.env.REACT_APP_WEATHER_BASE_URL;
   api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
@@ -29,7 +30,7 @@ function CallReports({ history }) {
   const toast = useToast()
   const [loadingStudentAnswers, setLoadingStudentAnswers] = useState(true)
   const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
-  const classroomId = 1;
+  const classroomId = useParams().classroom_id
   const [callListId, setCallListId] = useState()
   const [filterAllCallList, setFilterAllCallList] = useState(true)
   const [studentAnswers, setStudentAnswers] = useState()
@@ -40,9 +41,9 @@ function CallReports({ history }) {
     setPage(value);
   };
 
-  function SelectCallListId(){
+  function SelectCallListId() {
     const call_list = document.getElementById("selectCallList").value;
-    if (call_list === ""){
+    if (call_list === "") {
       setFilterAllCallList(true)
     } else {
       setFilterAllCallList(false)
@@ -51,7 +52,7 @@ function CallReports({ history }) {
   }
 
   useEffect(() => {
-    async function getStudentAnswers(classroomId, page=1) {
+    async function getStudentAnswers(classroomId, page = 1) {
       const token = localStorage.getItem('token')
       const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
       setStudentAnswers(response.data)
@@ -67,7 +68,7 @@ function CallReports({ history }) {
   }, [])
 
   function Aaaaaaa() {
-    if (!!callListId && !filterAllCallList){
+    if (!!callListId && !filterAllCallList) {
       return false
     }
     return true
@@ -79,17 +80,17 @@ function CallReports({ history }) {
         <div className='callSelection'>
           <div className="selection">
             <Select placeholder="Todas as Chamadas" id="selectCallList" borderColor="#00ADB5" onChange={() => SelectCallListId()} size="lg" >
-              {callLists.map(callList => <option value={callList.id}>{callList.title}</option>)}
-              <option value="all">'Todas as Chamadas'</option>
+              {callLists.map(callList => <option key={`call_list_${callList.id}`} value={callList.id}>{callList.title}</option>)}
+              <option value="all">Todas as Chamadas</option>
             </Select>
           </div>
-          <Calendar className='calendar'/>
+          <Calendar className='calendar' />
         </div>
         <div className='actions'>
           <div className='buttonPosition'>
             <div className='exportButton'>
-              <Button colorScheme="teal" size="lg" type="link"  onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
-              <Link ml="5" href={`${9}/AnswerCall`} isExternal>
+              <Button colorScheme="teal" size="lg" type="link" onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
+              <Link ml="5" href={`${callListId}/AnswerCall`} isExternal>
                 Link da Chamada <ExternalLinkIcon mx="2px" />
               </Link>
             </div>
@@ -115,15 +116,15 @@ function CallReports({ history }) {
                   <Th>Check</Th>
                 </Tr>
               </Thead>
-              <Tbody>
+              <Tbody key={'tbody'}>
                 {
                   loadingStudentAnswers
-                  ? arrayLoading.map((arrayLoading, i) =>
-                    <Tr><Td><Skeleton key={i} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>
-                  )
-                  : studentAnswers.map(studentAnswer =>
-                    <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />
-                  )
+                    ? arrayLoading.map(i =>
+                      <Tr key={`Tr_${i}`}><Td key={`Td_${i}`}><Skeleton key={`Skeleton_${i}`} isLoaded={!loadingStudentAnswers} h="40px" /></Td></Tr>
+                    )
+                    : studentAnswers.map(studentAnswer =>
+                      <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={"V"} />
+                    )
                 }
               </Tbody>
             </Table>
