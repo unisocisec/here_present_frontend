@@ -23,13 +23,13 @@
 .table {
   grid-area: T;
   width: 95%; 
-  margin-top: 4%;
+  margin-top: 2%;
 }
 
 .buttonPosition {
   display: flex;
   flex-direction: row;
-  margin-top: 2%;
+  margin-top: 15px;
   margin-left: 30%;
 }
 .tabs{

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useToast } from "@chakra-ui/react"
+import { useToast, Link } from "@chakra-ui/react"
 import Topbar from "../components/TopBar";
 import InputPassword from "../components/InputPassword"
 import InputText from "../components/InputText";
@@ -67,6 +67,15 @@ function Signup({ history }) {
             <PrimaryButton type="button" id="signupButton" onClick={() => setSignUp()}>
               Cadastrar
             </PrimaryButton>
+          </div>
+          <div className="login">
+            <Link href="/">
+              <PrimaryButton type="button" id="login">
+                Já sou cadastrado.
+                <br></br>
+                Ir Para o Login
+              </PrimaryButton>
+            </Link>
           </div>
         </div>
         <div className="SloganSignup">
