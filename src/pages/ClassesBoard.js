@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Skeleton } from "@chakra-ui/react"
-import Topbar from "../components/TopBar";
 import TemplatePage from '../components/templatePage';
 import api from '../services/api'
+import ClassCard from '../components/ClassCard';
 
 import '../styles/pages/classesBoard.css';
-import ClassCard from '../components/ClassCard';
 
 function ClassesBoard({ history }) {
   const [loading, setLoading] = useState(true)

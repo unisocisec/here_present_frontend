@@ -1,5 +1,5 @@
 // nao usar descontinuado
-import React, { ButtonHTMLAttributes } from 'react';
+import React from 'react';
 
 import './styles.css';
 
