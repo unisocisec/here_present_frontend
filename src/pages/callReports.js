@@ -14,7 +14,7 @@ function ExportAnswers(classroomId, toast) {
   const BASE_URL = process.env.REACT_APP_WEATHER_BASE_URL;
   api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
     window.open(`${BASE_URL}${response.data.path}`, '_blank')
-  }).catch(err => {
+  }).catch(_err => {
     toast({
       title: "Falha na exportação",
       description: "comunique o suporte em https://github.com/unisocisec/here_present_frontend",
@@ -31,6 +31,7 @@ function CallReports({ history }) {
   const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
   const classroomId = useParams().classroom_id
   const [callListId, setCallListId] = useState()
+  const [TokenCallListId, setTokenCallListId] = useState(null)
   const [studentAnswers, setStudentAnswers] = useState([])
   const [filterAllCallList, setFilterAllCallList] = useState(true)
   const [callLists, setCallLists] = useState([])
@@ -53,18 +54,24 @@ function CallReports({ history }) {
       const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
       setCallLists(response.data)
     }
-    console.log("asddasasd", classroomId, )
     getCallLists(classroomId)
   }, [filterAllCallList])
 
   function SelectCallListId() {
-    const call_list = document.getElementById("selectCallList").value;
-    if (call_list === "" || call_list === "all") {
+    const call_list_id = document.getElementById("selectCallList").value;
+    if (call_list_id === "" || call_list_id === "all") {
       setFilterAllCallList(true)
     } else {
       setFilterAllCallList(false)
-      setCallListId(call_list)
+      setCallListId(call_list_id)
+      SelectTokenCallListId(call_list_id)
     }
+  }
+
+  async function SelectTokenCallListId(call_list_id) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/call_lists/${call_list_id}`, { headers: { Authorization: token } })
+    setTokenCallListId(response.data.token_call_list)
   }
 
   return (
@@ -82,9 +89,15 @@ function CallReports({ history }) {
           <div className='buttonPosition'>
             <div className='exportButton'>
               <Button colorScheme="teal" size="lg" type="link" onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
-              <Link ml="5" href={`${callListId}/AnswerCall`} isExternal>
-                Link da Chamada <ExternalLinkIcon mx="2px" />
-              </Link>
+              {
+                !!TokenCallListId
+                ?
+                  <Link ml="5" href={`../AnswerCall/${TokenCallListId}`} isExternal>
+                    Link da Chamada <ExternalLinkIcon mx="2px" />
+                  </Link>
+                :
+                <div></div>
+              }
             </div>
             <div className='tabs'>
               <Tabs variant="enclosed">

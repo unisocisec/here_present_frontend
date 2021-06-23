@@ -7,6 +7,7 @@ import InputText from "../components/InputText";
 import { Img } from "@chakra-ui/react"
 import api from "../services/api";
 import { useToast } from "@chakra-ui/react"
+import { useParams } from 'react-router-dom'
 import '../styles/pages/answerCall.css';
 
 function AnswerCall() {
@@ -15,16 +16,13 @@ function AnswerCall() {
   const [documentaion, setDocumentaion]= useState("");
   const [confirmationCode, setConfirmationCode]= useState("");
   const toast = useToast()
-  const [callList, setCallList] = useState([]);
-  const [callListId, setCallListId] = useState("");
+  const tokenCallListId = useParams().call_list_id
 
   async function registerStudentAnswer() {
-    const teacherId = localStorage.getItem('teacherId')
-    const token = localStorage.getItem('token')
-    api.post(`/api/v1/teachers/${teacherId}/teacher_classrooms`, {
-      body: { full_name: name, email: email, confirmation_code: confirmationCode, documentaion: documentaion, call_list_id: callListId },
-      headers: { Authorization: token } }
-    ).then(response => {
+    api.post(`/api/v1/student_answers`, {
+      full_name: name, email: email, confirmation_code: confirmationCode, documentaion: documentaion, call_list_id: tokenCallListId
+    }
+    ).then(_response => {
       toast({
         title: "Cadastro com Sucesso",
         description: "Obrigado pelo seu cadastro.",
@@ -33,7 +31,7 @@ function AnswerCall() {
         duration: 6000,
         isClosable: true,
       })
-    }).catch(err => {
+    }).catch(_err => {
       toast({
         title: "Falha no cadastro",
         description: "Informe o professor que não foi possivel cadastrar.",
