@@ -55,20 +55,22 @@ function CallReports({ history }) {
   }
 
   useEffect(() => {
-    async function getStudentAnswers(classroomId, page=1) {
-      const token = localStorage.getItem('token')
-      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
-      setStudentAnswers(response.data)
-      setLoadingStudentAnswers(false)
-    }
     getStudentAnswers(classroomId)
-    async function getCallLists(classroomId) {
-      const token = localStorage.getItem('token')
-      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
-      setCallLists(response.data)
-    }
     getCallLists(classroomId)
   }, [])
+
+  async function getStudentAnswers(classroomId, page=1) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
+    setStudentAnswers(response.data)
+    setLoadingStudentAnswers(false)
+  }
+
+  async function getCallLists(classroomId) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
+    setCallLists(response.data)
+  }
 
   function Aaaaaaa() {
     if (!!callListId && !filterAllCallList){
@@ -138,6 +140,10 @@ function CallReports({ history }) {
         <CreateCall 
           closeModal={() => setShowCreateCall(false)}
           classroomId={classroomId}
+          refreshPage={() => {
+            getStudentAnswers(classroomId)
+            getCallLists(classroomId)
+          }}
         />
       }
     </TemplatePage>
