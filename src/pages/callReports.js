@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TemplatePage from '../components/templatePage';
 import StudentReport from '../components/StudentReport';
-import { Button, Select, Tabs, TabList, Tab, Link, useToast, Table, Thead, Tbody, Tr, Td, Th, Skeleton } from "@chakra-ui/react";
+import { Button, Select, Tabs, TabList, Tab, Text, Link, useToast, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import '../styles/pages/callReports.css';
@@ -11,9 +11,8 @@ import Pagination from '@material-ui/lab/Pagination';
 
 function ExportAnswers(classroomId, toast) {
   const token = localStorage.getItem('token')
-  const BASE_URL = process.env.REACT_APP_WEATHER_BASE_URL;
   api.get(`/api/v1/classrooms/${classroomId}/export_student_answers_in_classroom`, { headers: { Authorization: token } }).then(response => {
-    window.open(`${BASE_URL}${response.data.path}`, '_blank')
+    window.open(`${response.data.path}`, '_blank')
   }).catch(_err => {
     toast({
       title: "Falha na exportação",
@@ -28,44 +27,61 @@ function ExportAnswers(classroomId, toast) {
 
 function CallReports({ history }) {
   const toast = useToast()
-  const arrayLoading = ["asdasasd", "asdasdasd", "ASDASD"]
   const classroomId = useParams().classroom_id
-  const [callListId, setCallListId] = useState()
+  const [callListId, setCallListId] = useState(null)
   const [TokenCallListId, setTokenCallListId] = useState(null)
-  const [studentAnswers, setStudentAnswers] = useState([])
+  const [studentAnswersAllList, setStudentAnswers] = useState([])
+  const [studentAnswersCallList, setStudentAnswersCallList] = useState([])
   const [filterAllCallList, setFilterAllCallList] = useState(true)
   const [callLists, setCallLists] = useState([])
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [codeConfirmation, setCodeConfirmation] = useState(null);
 
-  const handleChangePage = (_event, value) => {
-    setPage(value);
+  const handleChangePage = async (_event, value) => {
+    await setPage(value);
+    if (!filterAllCallList){
+      SelectStudentAnswersCallList(callListId, value)
+    }
   };
 
-
   useEffect(() => {
-    async function getStudentAnswers(classroomId, page = 1) {
-      const token = localStorage.getItem('token')
-      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
-      setStudentAnswers(response.data)
+    if (!!filterAllCallList){
+      async function getStudentAnswers(classroomId, page = 1) {
+        const token = localStorage.getItem('token')
+        const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
+        setTotalPage(response.headers.total)
+        setStudentAnswers(response.data)
+      }
+      getStudentAnswers(classroomId, page)
     }
-    getStudentAnswers(classroomId)
     async function getCallLists(classroomId) {
       const token = localStorage.getItem('token')
       const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
       setCallLists(response.data)
     }
     getCallLists(classroomId)
-  }, [filterAllCallList])
+  }, [classroomId, filterAllCallList, page])
 
-  function SelectCallListId() {
-    const call_list_id = document.getElementById("selectCallList").value;
+  function SelectCallListId(option_selected) {
+    const call_list_id = option_selected?.value
     if (call_list_id === "" || call_list_id === "all") {
       setFilterAllCallList(true)
+      setCodeConfirmation(null)
     } else {
       setFilterAllCallList(false)
       setCallListId(call_list_id)
       SelectTokenCallListId(call_list_id)
+      setCodeConfirmation(option_selected?.title)
+      SelectStudentAnswersCallList(call_list_id, page)
     }
+  }
+
+  async function SelectStudentAnswersCallList(call_list_id, page = 1) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/call_lists/${call_list_id}/call_list_student_answers?page=${page}`, { headers: { Authorization: token } })
+    setStudentAnswersCallList(response.data)
+    setTotalPage(response.headers.total)
   }
 
   async function SelectTokenCallListId(call_list_id) {
@@ -74,13 +90,21 @@ function CallReports({ history }) {
     setTokenCallListId(response.data.token_call_list)
   }
 
+  function intTotalPage(total_page) {
+    total_page = Math.floor(total_page/12) + 1
+    return total_page
+  }
+
   return (
     <TemplatePage nameButton={'Criar Chamada'} acitiveButton={true} acitiveUser={true} history={history}>
       <div className='callReports'>
         <div className='callSelection'>
           <div className="selection">
-            <Select placeholder="Todas as Chamadas" id="selectCallList" borderColor="#00ADB5" onChange={() => SelectCallListId()} size="lg" >
-              {callLists.map(callList => <option key={`call_list_${callList.id}`} value={callList.id}>{callList.title}</option>)}
+            <Select placeholder="Todas as Chamadas" id="selectCallList" borderColor="#00ADB5" onChange={() => SelectCallListId(document.getElementById("selectCallList")?.options[document.getElementById("selectCallList")?.selectedIndex])} size="lg" >
+              {callLists.map(callList => 
+              <option key={`call_list_${callList.id}`} value={callList.id} title={callList.confirmation_code}>
+                {callList.title}
+              </option>)}
             </Select>
           </div>
           <Calendar className='calendar' />
@@ -110,7 +134,14 @@ function CallReports({ history }) {
           </div>
         </div>
         <div className='table'>
-          <Pagination className="paginateCallReports" count={10} page={page} onChange={handleChangePage} />
+          <Pagination className="paginateCallReports" count={intTotalPage(totalPage)} page={page} onChange={handleChangePage} />
+          {
+            !!codeConfirmation ?
+            <Text>Palavra Chave: {codeConfirmation}</Text>
+            :
+            <div/>
+          }
+          
           <div className='bard' >
             <Table variant="striped" colorScheme="teal" >
               <Thead>
@@ -125,11 +156,11 @@ function CallReports({ history }) {
                 {
                   
                   filterAllCallList
-                    ? studentAnswers.map(studentAnswer =>
+                    ? studentAnswersAllList.map(studentAnswer =>
                       <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={studentAnswer.answer_correct} />
                     )
-                    : arrayLoading.map(i =>
-                      <Tr key={`Tr_${i}`}><Td key={`Td_${i}`}><Skeleton key={`Skeleton_${i}`} isLoaded={!filterAllCallList} h="40px" /></Td></Tr>
+                    : studentAnswersCallList.map(studentAnswer =>
+                      <StudentReport key={`student_${studentAnswer.id}`} dataKey={studentAnswer.id} name={studentAnswer.full_name} email={studentAnswer.email} confirmationCode={studentAnswer.confirmation_code} check={studentAnswer.answer_correct} />
                     )
                 }
               </Tbody>
