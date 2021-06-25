@@ -137,7 +137,7 @@ function CallReports({ history }) {
           <Pagination className="paginateCallReports" count={intTotalPage(totalPage)} page={page} onChange={handleChangePage} />
           {
             !!codeConfirmation ?
-            <Text>Palavra Chave: {codeConfirmation}</Text>
+            <Text>Codigo de confirmação: {codeConfirmation}</Text>
             :
             <div/>
           }
@@ -148,7 +148,7 @@ function CallReports({ history }) {
                 <Tr>
                   <Th>Nome do aluno </Th>
                   <Th>E-mail</Th>
-                  <Th>Palavra-Chave</Th>
+                  <Th>Codigo de confirmação</Th>
                   <Th>Check</Th>
                 </Tr>
               </Thead>
