@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Skeleton } from "@chakra-ui/react"
 import TemplatePage from '../components/templatePage';
 import api from '../services/api'
-import '../styles/pages/classesBoard.css';
 import ClassCard from '../components/ClassCard';
+
+import '../styles/pages/classesBoard.css';
 
 function ClassesBoard({ history }) {
   const [loading, setLoading] = useState(true)

@@ -4,10 +4,11 @@ import StudentReport from '../components/StudentReport';
 import { Button, Select, Tabs, TabList, Tab, Text, Link, useToast, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import '../styles/pages/callReports.css';
-import api from "../services/api";
 import { useParams } from 'react-router-dom'
 import Pagination from '@material-ui/lab/Pagination';
+import api from "../services/api";
+import CreateCall from '../components/modal/createCall/index';
+import '../styles/pages/callReports.css';
 
 function ExportAnswers(classroomId, toast) {
   const token = localStorage.getItem('token')
@@ -37,6 +38,7 @@ function CallReports({ history }) {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [codeConfirmation, setCodeConfirmation] = useState(null);
+  const [showCreateCall, setShowCreateCall] = useState(false)
 
   const handleChangePage = async (_event, value) => {
     await setPage(value);
@@ -47,18 +49,7 @@ function CallReports({ history }) {
 
   useEffect(() => {
     if (!!filterAllCallList){
-      async function getStudentAnswers(classroomId, page = 1) {
-        const token = localStorage.getItem('token')
-        const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
-        setTotalPage(response.headers.total)
-        setStudentAnswers(response.data)
-      }
       getStudentAnswers(classroomId, page)
-    }
-    async function getCallLists(classroomId) {
-      const token = localStorage.getItem('token')
-      const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
-      setCallLists(response.data)
     }
     getCallLists(classroomId)
   }, [classroomId, filterAllCallList, page])
@@ -75,6 +66,19 @@ function CallReports({ history }) {
       setCodeConfirmation(option_selected?.title)
       SelectStudentAnswersCallList(call_list_id, page)
     }
+  }
+
+  async function getCallLists(classroomId) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_call_lists`, { headers: { Authorization: token } })
+    setCallLists(response.data)
+  }
+
+  async function getStudentAnswers(classroomId, page = 1) {
+    const token = localStorage.getItem('token')
+    const response = await api.get(`/api/v1/classrooms/${classroomId}/classroom_student_answers?page=${page}`, { headers: { Authorization: token } })
+    setTotalPage(response.headers.total)
+    setStudentAnswers(response.data)
   }
 
   async function SelectStudentAnswersCallList(call_list_id, page = 1) {
@@ -96,7 +100,7 @@ function CallReports({ history }) {
   }
 
   return (
-    <TemplatePage nameButton={'Criar Chamada'} acitiveButton={true} acitiveUser={true} history={history}>
+    <TemplatePage nameButton={'Criar Chamada'} acitiveButton={true} acitiveUser={true} history={history} onClick={() => setShowCreateCall(true)}>
       <div className='callReports'>
         <div className='callSelection'>
           <div className="selection">
@@ -168,6 +172,16 @@ function CallReports({ history }) {
           </div>
         </div>
       </div>
+      {showCreateCall &&
+        <CreateCall 
+          closeModal={() => setShowCreateCall(false)}
+          classroomId={classroomId}
+          refreshPage={() => {
+            getStudentAnswers(classroomId)
+            getCallLists(classroomId)
+          }}
+        />
+      }
     </TemplatePage>
   )
 }
