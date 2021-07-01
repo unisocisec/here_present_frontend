@@ -64,7 +64,7 @@ function CallReports({ history }) {
       setCallListId(call_list_id)
       SelectTokenCallListId(call_list_id)
       setCodeConfirmation(option_selected?.title)
-      SelectStudentAnswersCallList(call_list_id, page)
+      SelectStudentAnswersCallList(call_list_id, 1)
     }
   }
 
