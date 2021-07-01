@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import backgroundCallList from '../images/background_call_list.png';
 import Topbar from "../components/TopBar";
@@ -14,9 +14,18 @@ function AnswerCall() {
   const [name, setName]= useState("");
   const [email, setEmail]= useState("");
   const [documentaion, setDocumentaion]= useState("");
+  const [classroomName, setClassroomName]= useState("");
   const [confirmationCode, setConfirmationCode]= useState("");
   const toast = useToast()
   const tokenCallListId = useParams().call_list_id
+
+  useEffect(() => {
+    async function getClassroomName(tokenCallListId) {
+      const response = await api.get(`/api/v1/call_lists/get_classroom_name?token_call_list_id=${tokenCallListId}`)
+      setClassroomName(response.data.classroom_name)
+    }
+    getClassroomName(tokenCallListId)
+  }, [tokenCallListId])
 
   async function registerStudentAnswer() {
     api.post(`/api/v1/student_answers`, {
@@ -53,7 +62,7 @@ function AnswerCall() {
           <div className="callListName">
             Chamada da Turma:
             <br/>
-            UC-Modelagem
+            {classroomName}
           </div>
           <div className="formCallList">
             <div className="nameContainer">
