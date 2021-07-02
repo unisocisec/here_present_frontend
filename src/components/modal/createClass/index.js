@@ -12,7 +12,7 @@ const CreateClass = ({ ...props }) => {
   const [nameClass, setNameClass] = useState('');
   const [nameSchool, setNameSchool] = useState('');
   const [daysWeek, setdaysWeek] = useState([]);
-  const [shift, setShift] = useState('');
+  const [shift, setShift] = useState('Diurnal');
   const toast = useToast()
 
 

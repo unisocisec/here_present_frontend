@@ -59,6 +59,7 @@ function CallReports({ history }) {
     if (call_list_id === "" || call_list_id === "all") {
       setFilterAllCallList(true)
       setCodeConfirmation(null)
+      setTokenCallListId(null)
     } else {
       setFilterAllCallList(false)
       setCallListId(call_list_id)
@@ -117,15 +118,11 @@ function CallReports({ history }) {
           <div className='buttonPosition'>
             <div className='exportButton'>
               <Button colorScheme="teal" size="lg" type="link" onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
-              {
-                !!TokenCallListId
-                ?
+              {!!TokenCallListId && ( 
                   <Link ml="5" href={`../AnswerCall/${TokenCallListId}`} isExternal>
                     Link da Chamada <ExternalLinkIcon mx="2px" />
                   </Link>
-                :
-                <div></div>
-              }
+              )}
             </div>
             <div className='tabs'>
               <Tabs variant="enclosed">
@@ -139,13 +136,7 @@ function CallReports({ history }) {
         </div>
         <div className='table'>
           <Pagination className="paginateCallReports" count={intTotalPage(totalPage)} page={page} onChange={handleChangePage} />
-          {
-            !!codeConfirmation ?
-            <Text>Codigo de confirmação: {codeConfirmation}</Text>
-            :
-            <div/>
-          }
-          
+          {!!codeConfirmation && <Text>Codigo de confirmação: {codeConfirmation}</Text>}
           <div className='bard' >
             <Table variant="striped" colorScheme="teal" >
               <Thead>
