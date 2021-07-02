@@ -17,6 +17,7 @@
   background: #00ADB5;
   border-bottom: 2px solid #000;
 }
+
 .content {
   grid-area: C;
   background: #E5E5E5;

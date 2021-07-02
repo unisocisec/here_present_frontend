@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import backgroundCallList from '../images/background_call_list.png';
 import Topbar from "../components/TopBar";
@@ -7,24 +7,31 @@ import InputText from "../components/InputText";
 import { Img } from "@chakra-ui/react"
 import api from "../services/api";
 import { useToast } from "@chakra-ui/react"
+import { useParams } from 'react-router-dom'
 import '../styles/pages/answerCall.css';
 
 function AnswerCall() {
   const [name, setName]= useState("");
   const [email, setEmail]= useState("");
   const [documentaion, setDocumentaion]= useState("");
+  const [classroomName, setClassroomName]= useState("");
   const [confirmationCode, setConfirmationCode]= useState("");
   const toast = useToast()
-  const [callList, setCallList] = useState([]);
-  const [callListId, setCallListId] = useState("");
+  const tokenCallListId = useParams().call_list_id
+
+  useEffect(() => {
+    async function getClassroomName(tokenCallListId) {
+      const response = await api.get(`/api/v1/call_lists/get_classroom_name?token_call_list_id=${tokenCallListId}`)
+      setClassroomName(response.data.classroom_name)
+    }
+    getClassroomName(tokenCallListId)
+  }, [tokenCallListId])
 
   async function registerStudentAnswer() {
-    const teacherId = localStorage.getItem('teacherId')
-    const token = localStorage.getItem('token')
-    api.post(`/api/v1/teachers/${teacherId}/teacher_classrooms`, {
-      body: { full_name: name, email: email, confirmation_code: confirmationCode, documentaion: documentaion, call_list_id: callListId },
-      headers: { Authorization: token } }
-    ).then(response => {
+    api.post(`/api/v1/student_answers`, {
+      full_name: name, email: email, confirmation_code: confirmationCode, documentaion: documentaion, call_list_id: tokenCallListId
+    }
+    ).then(_response => {
       toast({
         title: "Cadastro com Sucesso",
         description: "Obrigado pelo seu cadastro.",
@@ -33,7 +40,7 @@ function AnswerCall() {
         duration: 6000,
         isClosable: true,
       })
-    }).catch(err => {
+    }).catch(_err => {
       toast({
         title: "Falha no cadastro",
         description: "Informe o professor que não foi possivel cadastrar.",
@@ -55,7 +62,7 @@ function AnswerCall() {
           <div className="callListName">
             Chamada da Turma:
             <br/>
-            UC-Modelagem
+            {classroomName}
           </div>
           <div className="formCallList">
             <div className="nameContainer">

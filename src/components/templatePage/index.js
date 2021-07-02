@@ -2,18 +2,19 @@
 import React from 'react';
 import { Button } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react"
-import './styles.css';
 import trademark from '../../images/trademark.png';
+
+import './styles.css';
 // import avatar from '../../images/avatar.svg';
 
 function TemplatePage({ history, ...props }) {
-  const { acitiveButton, nameButton, acitiveUser, children } = props || {};
+  const { acitiveButton, nameButton, acitiveUser, children, onClick } = props || {};
   const teacherName = localStorage.getItem('teacherName')
   async function logOff() {
     localStorage.clear();
     history.push('/');
   }
-  async function backButton(){
+  async function backButton() {
     history.goBack()
   }
   return (
@@ -22,11 +23,11 @@ function TemplatePage({ history, ...props }) {
         <img id="trademark" src={trademark} alt="trademark" />
       </div>
       <div className="components">
-        <Button colorScheme="teal" mt={3} size="lg" onClick={() => {backButton()}}>
+        <Button colorScheme="teal" mt={3} size="lg" onClick={() => { backButton() }}>
           Voltar
         </Button>
         {acitiveButton && (
-          <Button colorScheme="teal" mt={3} id="buttonMain" size="lg">{nameButton}</Button>
+          <Button colorScheme="teal" mt={3} id="buttonMain" size="lg" onClick={() => onClick()} >{nameButton}</Button>
         )}
         {acitiveUser && (
           <div className="avatar">

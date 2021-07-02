@@ -1,29 +1,31 @@
 import { extendTheme } from "@chakra-ui/react"
 
-export const customTheme = extendTheme({ 
-  colors: {
+
+export const customTheme = extendTheme({
+  color: {
   },
   components: {
-    Heading:{
+    Heading: {
       defaultProps: {},
       variants: {}
     },
-    Text:{
+    Text: {
       defaultProps: {},
       variants: {}
     },
-    Button:{
+    Button: {
       defaultProps: {},
-      variants:{
-        default:{
-          bg:'',
+      variants: {
+        default: {
+          bg: '',
           border: '',
           borderColor: '',
-          color:'',
-          _hover:'',
+          color: '',
+          _hover: '',
         }
       }
     }
+
   }
 })
 
