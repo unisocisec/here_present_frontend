@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import SweetAlert from 'react-bootstrap-sweetalert';
-import { Input, Text, Flex, Spacer, VStack, Button, InputGroup, InputRightElement } from '@chakra-ui/react';
+import { Input, Text, Flex, Spacer, VStack, Button, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
 import moment from 'moment';
-import { useToast } from "@chakra-ui/react"
-
 
 import api from "../../../services/api";
+
 
 const CreateCall = ({ ...props }) => {
   const { closeModal, classroomId, refreshPage } = props || {};
@@ -27,7 +26,7 @@ const CreateCall = ({ ...props }) => {
     if (!titleCall) {
       toast({
         title: "Chamada",
-        description: "O campo (Titulo da Chamada) e obrigatorio",
+        description: "O campo (Titulo da Chamada) é obrigatório",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -39,7 +38,7 @@ const CreateCall = ({ ...props }) => {
     } else if (!moment(dateStart).isValid()) {
       toast({
         title: "Chamada",
-        description: "O campo (Data de inicio) e obrigatorio",
+        description: "O campo (Data de inicio) é obrigatório",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -51,7 +50,7 @@ const CreateCall = ({ ...props }) => {
     } else if (!moment(dateEnd).isValid()) {
       toast({
         title: "Chamada",
-        description: "O campo (Data final) e obrigatorio",
+        description: "O campo (Data final) é obrigatório",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -63,7 +62,7 @@ const CreateCall = ({ ...props }) => {
     } else if (moment(dateStart).isAfter(moment(dateEnd))) {
       toast({
         title: "Chamada",
-        description: "O campo (Data final) nao pode ser menor que a (Data de inicio)",
+        description: "O campo (Data final) não pode ser menor que a (Data de inicio)",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -75,7 +74,7 @@ const CreateCall = ({ ...props }) => {
     } else if (!confirmationCode) {
       toast({
         title: "Chamada",
-        description: "O campo (Código de Confirmação) e obrigatorio",
+        description: "O campo (Código de Confirmação) é obrigatório",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -133,7 +132,7 @@ const CreateCall = ({ ...props }) => {
       console.log(error)
       toast({
         title: "Chamada",
-        description: error?.response?.data?.error_message || "Erro não foi posivel gerar a chave",
+        description: error?.response?.data?.error_message || "Não foi possível gerar o (Código de Confirmação)",
         position: "bottom-right",
         status: "error",
         duration: 6000,
@@ -146,10 +145,9 @@ const CreateCall = ({ ...props }) => {
     <SweetAlert
       confirmBtnText="Criar"
       confirmBtnBsStyle="primary"
-      title="Criaçao da Chamada"
-      btnSize=''
-      onConfirm={() => { callCreation() }}
-      onCancel={() => { closeModal() }}
+      title="Criação da Chamada"
+      onConfirm={() => callCreation()}
+      onCancel={() => closeModal() }
       customButtons={
         <React.Fragment>
           <Button colorScheme="blue" variant="outline" mr={4} onClick={closeModal}>Cancelar</Button>
