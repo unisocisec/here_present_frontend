@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = ""
+var BASE_URL = ""
 if (process.env.NODE_ENV === "production") {
   BASE_URL = "https://herepresent.herokuapp.com"
 } else {
