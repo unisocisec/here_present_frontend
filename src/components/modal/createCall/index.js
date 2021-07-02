@@ -3,7 +3,6 @@ import axios from "axios";
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { Input, Text, Flex, Spacer, VStack, Button, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
 import moment from 'moment';
-import { useToast } from "@chakra-ui/react"
 
 import api from "../../../services/api";
 
