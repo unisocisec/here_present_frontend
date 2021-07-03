@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 
 import Login from '../pages/Login';
 import AnswerCall from '../pages/AnswerCall';
@@ -10,7 +10,7 @@ import { Route } from './route'
 
 function Routes(){
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route path="/" exact Component={Login} isLogin/>
         <Route path="/AnswerCall/:call_list_id" exact Component={AnswerCall} isPublic/>
@@ -18,7 +18,7 @@ function Routes(){
         <Route path="/CallReports/:classroom_id" exact Component={CallReports} isPrivate />
         <Route path="/ClassesBoard" exact Component={ClassesBoard} isPrivate />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

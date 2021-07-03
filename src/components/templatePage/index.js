@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { Button } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react"
 import trademark from '../../images/trademark.png';
@@ -14,23 +15,25 @@ function TemplatePage({ history, ...props }) {
     localStorage.clear();
     history.push('/');
   }
-  async function backButton() {
-    history.goBack()
-  }
+  // async function backButton() {
+  //   history.goBack()
+  // }
   return (
     <div className="conteiner">
       <div className="logoTopBar">
+      <Link to='/ClassesBoard'>
         <img id="trademark" src={trademark} alt="trademark" />
+      </Link>
       </div>
       <div className="components">
-        <Button colorScheme="teal" mt={3} size="lg" onClick={() => { backButton() }}>
+        {/* <Button colorScheme="teal" mt={3} size="lg" onClick={() => { backButton() }}>
           Voltar
-        </Button>
+        </Button> */}
         {acitiveButton && (
           <Button colorScheme="teal" mt={3} id="buttonMain" size="lg" onClick={() => onClick()} >{nameButton}</Button>
         )}
         {acitiveUser && (
-          <div className="avatar">
+          <div className="avatar mt-1">
             <Menu mt={4}>
               <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'}>
                 <Avatar name={teacherName} />

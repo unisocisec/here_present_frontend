@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import TemplatePage from '../components/templatePage';
 import StudentReport from '../components/StudentReport';
-import { Button, Select, Tabs, TabList, Tab, Text, Link, useToast, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
+import { Button, Select, Tabs, TabList, Tab, Text, useToast, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { useParams } from 'react-router-dom'
@@ -119,7 +120,7 @@ function CallReports({ history }) {
             <div className='exportButton'>
               <Button colorScheme="teal" size="lg" type="link" onClick={() => ExportAnswers(classroomId, toast)}>Exportar Chamadas</Button>
               {!!TokenCallListId && ( 
-                  <Link ml="5" href={`../AnswerCall/${TokenCallListId}`} isExternal>
+                  <Link className='ml-5' to={`/AnswerCall/${TokenCallListId}`} target="_blank">
                     Link da Chamada <ExternalLinkIcon mx="2px" />
                   </Link>
               )}
