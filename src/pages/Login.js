@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useToast, Link } from "@chakra-ui/react"
+import { Link } from 'react-router-dom'
+import { useToast } from "@chakra-ui/react"
 import imageBackgroud from '../images/image_backgroud.png';
 import check from '../images/check.png';
 import Topbar from "../components/TopBar";
@@ -85,7 +86,7 @@ function Login({ history }) {
             <PrimaryButton type="button" id="loginButton" onClick={() => setLogin()}>Login</PrimaryButton>
           </div>
           <div className="newRegisterButton">
-            <Link href="/signup">
+            <Link to="/signup">
               <PrimaryButton type="button" id="newRegister">
                 Novo Aqui?
                 <br></br>
