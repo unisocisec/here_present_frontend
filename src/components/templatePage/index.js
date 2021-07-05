@@ -21,7 +21,7 @@ function TemplatePage({ history, ...props }) {
   return (
     <div className="conteiner">
       <div className="logoTopBar">
-      <Link to='/ClassesBoard'>
+      <Link to='/'>
         <img id="trademark" src={trademark} alt="trademark" />
       </Link>
       </div>
