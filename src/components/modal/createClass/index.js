@@ -147,7 +147,7 @@ const CreateClass = ({ ...props }) => {
       >
         <option value="Diurnal">matutino</option>
         <option value="Vespertine">vespertino</option>
-        <option value="Nightly">naturno</option>
+        <option value="Nightly">noturno</option>
       </Select>
 
     </SweetAlert >
