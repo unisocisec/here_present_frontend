@@ -42,7 +42,7 @@ function AnswerCall() {
       })
     }).catch(function (error) {
       var error_message;
-      if(error?.response?.status == 422){
+      if(error?.response?.status === 422){
         error_message = error?.response?.data?.error_message;
       } else {
         error_message = "Informe o professor que não foi possivel cadastrar.";
