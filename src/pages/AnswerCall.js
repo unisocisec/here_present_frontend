@@ -40,10 +40,16 @@ function AnswerCall() {
         duration: 6000,
         isClosable: true,
       })
-    }).catch(_err => {
+    }).catch(function (error) {
+      var error_message;
+      if(error?.response?.status == 422){
+        error_message = error?.response?.data?.error_message;
+      } else {
+        error_message = "Informe o professor que não foi possivel cadastrar.";
+      }
       toast({
         title: "Falha no cadastro",
-        description: "Informe o professor que não foi possivel cadastrar.",
+        description: error_message,
         position: "bottom-right",
         status: "error",
         duration: 6000,

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Skeleton } from "@chakra-ui/react"
 import TemplatePage from '../components/templatePage';
-import api from '../services/api'
 import ClassCard from '../components/ClassCard';
+import CreateClass from '../components/modal/createClass/index';
 
-import CreateClass from '../components/modal/createClass/index'
+import api from '../services/api'
 import '../styles/pages/classesBoard.css';
 
 function ClassesBoard({ history }) {
